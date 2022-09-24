@@ -2,9 +2,13 @@ const express = require('express');
 const faker = require('faker');
 const router = express.Router();
 const ResService = require('../services/reservacion.service');
+const validatorHandler = require('./../middlewares/validator.handler');
 const service = new ResService();
+const {
+	createReservationDto,
+  } = require('../dtos/reservar.dto');
 
-router.put('/', async (req, res) => {
+router.put('/', validatorHandler(createUserDto, 'params'), async (req, res) => {
     let idUser = req.query.idUser;
 	let idEst = req.query.idEst;
 	let parkinglot = req.query.parkinglot;
