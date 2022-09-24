@@ -1,10 +1,13 @@
 const express = require('express');
-const establecimientosRouter = require('./establecimientos.router');
+//const UserRouter = require('./login.router');
+const loginService = require('./login.router');
+const registerService = require('./register.router');
 
 function routerApi(app) {
   const router = express.Router();
-  app.use('/api/v1', router);
-  router.use('/establecimientos', establecimientosRouter);
+  app.use('/api', router);
+  router.use('/login', loginService);
+  router.use('/signin', registerService);
   //router.use('/users', productsRouter);
   //router.use('/categories', productsRouter);
 }
