@@ -23,6 +23,9 @@ class UserService {
   findOne(username) {
     return this.user.find((item) => item.username === username);
   }
+  findOneRandom(number){
+    return this.user[number]
+  }
   //FAKER
   create(data) {
     const newUser = {
