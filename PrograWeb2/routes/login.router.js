@@ -1,15 +1,19 @@
 const express = require('express');
 const faker = require('faker');
 const router = express.Router();
+const validatorHandler = require('./../middlewares/validator.handler');
 const UserService = require('../services/user.service');
 const service = new UserService();
+const {
+	loginUserDto,
+  } = require('../dtos/user.dto');
 
-router.get('/', async (req, res) => {
-    let username = req.body.username;
-	let password = req.body.password;
+router.get('/', validatorHandler(loginUserDto, 'params'), async (req, res) => {
+    let username = req.query.username;
+	let password = req.query.password;
 	let sessionUser = "";
 	let loggedin = false;
-	var i;
+	var errorCount;
 	if (username && password) {
 		/*dbo.collection("usuarios").find({}, {"usuario": { $eq: username }},function(err, result) {
 			if (err) throw err;
@@ -25,7 +29,7 @@ router.get('/', async (req, res) => {
 		});*/
 		if(username ==""){
 			console.log("El campo de nombres está vacío.\n");
-			i++;
+			errorCount++;
 		}else{
 			let strLetras = /^[a-zA-Z\sñÁÉÍÓÚáéíóúàèìòùÀÈÌÒÙ]*$/;
 			 for (let j = 0; j < username.length; j++){
@@ -33,13 +37,13 @@ router.get('/', async (req, res) => {
 			   if(!strLetras.test(tolower)){
 				   if(username.charAt(j) != " "){
 					console.log("El campo de usuario solo puede contener letras.\n");
-				   i++;
+					errorCount++;
 			   }
 			   }
 			}
 			if(username.length > 30){
 				console.log("El campo de usuario no puede tener más de 30 caracteres.\n");
-				i++;
+				errorCount++;
 			}
 		}
 		if(password != ""){
@@ -91,10 +95,10 @@ router.get('/', async (req, res) => {
 				if(!lengthAte){
 					console.log("La contraseña debe tener por lo menos 8 caracteres.\n");
 				}
-				i++;
+				errorCount++;
 			}
 		}
-		if(faker.random.alpha(10) == password && i == 0){
+		if(faker.random.alpha(10) == password && errorCount == 0){
 			const user = await service.find();
 			loggedin = true;
 			sessionUser= username;

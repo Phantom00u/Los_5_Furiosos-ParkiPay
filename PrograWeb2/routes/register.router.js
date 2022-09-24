@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-//const validatorHandler = require('./../middlewares/validator.handler');
+const UserService = require('../services/user.service');
+const service = new UserService();
+const validatorHandler = require('./../middlewares/validator.handler');
+const {
+	createUserDto,
+  } = require('../dtos/user.dto');
 
 function validarEmail(correo){
 	var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
@@ -13,50 +18,70 @@ function validarEmail(correo){
 }
 
 
-router.put('/', async (req, res) => {
-    let username = req.body.username;
-	let password = req.body.password;
-    let email = req.body.email;
-    let telephone = req.body.telephone;
-    let paypal = req.body.paypal;
-	var i = 0;
-    let userObj = {"usuario": username, "contrasena": password, "correo":email, "telefono":telephone, "paypal": paypal }
-	if (username && password && email && telephone && paypal) {
+router.put('/', validatorHandler(createUserDto, 'params'),async (req, res) => {
+    let username = req.query.username;
+	let name = req.query.name;
+	let password = req.query.password;
+    let email = req.query.email;
+    let telephone = req.query.telephone;
+    let paypal = req.query.paypal;
+	var errorCount = 0;
+    let userObj = {"usuario": username, "name": name, "contrasena": password, "correo":email, "telefono":telephone, "paypal": paypal }
+	if (username && name && password && email && telephone && paypal) {
 		/*dbo.collection("usuarios").insertOne(userObj,function(err, result) {
 			if (err) throw err;
             res.end();
 		});*/
 		if(username ==""){
-			console.log("El campo de nombres está vacío.\n");
-			i++;
+			console.log("El campo de usuario está vacío.\n");
+			errorCount++;
 		}else{
 			let strLetras = /^[a-zA-Z\sñÁÉÍÓÚáéíóúàèìòùÀÈÌÒÙ]*$/;
 			 for (let j = 0; j < username.length; j++){
 				 let tolower = username.charAt(j).toLowerCase();
 			   if(!strLetras.test(tolower)){
-				   if(a.charAt(j) != " "){
+				   if(username.charAt(j) != " "){
 					console.log("El campo de usuario solo puede contener letras.\n");
-				   i++;
+					errorCount++;
 			   }
 			   }
 			}
 			if(a.length > 30){
 				console.log("El campo de usuario no puede tener más de 30 caracteres.\n");
-				i++;
+				errorCount++;
+			}
+		}
+		if(name ==""){
+			console.log("El campo de nombre está vacío.\n");
+			errorCount++;
+		}else{
+			let strLetras = /^[a-zA-Z\sñÁÉÍÓÚáéíóúàèìòùÀÈÌÒÙ]*$/;
+			 for (let j = 0; j < name.length; j++){
+				 let tolower = name.charAt(j).toLowerCase();
+			   if(!strLetras.test(tolower)){
+				   if(name.charAt(j) != " "){
+					console.log("El campo de nombre solo puede contener letras.\n");
+					errorCount++;
+			   }
+			   }
+			}
+			if(a.length > 30){
+				console.log("El campo de usuario no puede tener más de 30 caracteres.\n");
+				errorCount++;
 			}
 		}
 		if(email != ""){
 			var bool = validarEmail(email);
 			if(bool == false){
 				console.log("El correo ingresado es invalido.\n");
-				i++;
+				errorCount++;
 			} 
 		 }
 		 if(paypal != ""){
 			var bool = validarEmail(paypal);
 			if(bool == false){
 				console.log("El paypal ingresado es invalido.\n");
-				i++;
+				errorCount++;
 			} 
 		 }
 		if(password != ""){
@@ -108,12 +133,12 @@ router.put('/', async (req, res) => {
 				if(!lengthAte){
 					console.log("La contraseña debe tener por lo menos 8 caracteres.\n");
 				}
-				i++;
+				errorCount++;
 			}
 		}
 		if(telephone == ""){
 			console.log("No se ha ingresado un telefono.\n");
-			i++;
+			errorCount++;
 		}else{
 			switch(telephone.length){
 				case 8:
@@ -122,16 +147,22 @@ router.put('/', async (req, res) => {
 					break;
 				default:
 					console.log("El telefono ingresado no tiene el largo correcto (8, 10 o 12 caracteres).\n");
-					i++;
+					errorCount++;
 					break;
 			}
 			for (let i = 0; i < telephone.length; i++){
 				if (isNaN(telephone.charAt(i) * 1)){
 					console.log("El telefono ingresado es invalido.\n");
-					i++;
+					errorCount++;
 					break;
 				}
 			}
+		}
+		if(errorCount > 0){
+			res.send('Por favor revise bien los datos ingresados');
+		}else{
+			service.create(userObj);
+			res.send('Si jala x2');
 		}
 	} else {
 		/*res.send('Ingrese sus datos por favor');
