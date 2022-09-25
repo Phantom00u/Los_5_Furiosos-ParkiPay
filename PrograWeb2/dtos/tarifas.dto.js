@@ -5,7 +5,7 @@ const id = Joi.string().alphanum();
 const tarifa =Joi.number();
 
 const createTarifaDto = Joi.object({
-    idUser: idUser.required(),
+    id: id.required(),
     tarifa: tarifa.required(),
 });
 
