@@ -85,7 +85,7 @@ const {
       try {
         const { id } = req.params;
         const body = req.body;
-        const tarifa = await service.updateComplete(id, body);
+        const tarifa = await service.update(id, body);
         res.json({
           message: 'update total',
           data: tarifa,

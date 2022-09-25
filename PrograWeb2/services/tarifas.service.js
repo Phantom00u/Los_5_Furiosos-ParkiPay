@@ -9,7 +9,7 @@ class UserService {
     for (let index = 0; index < limit; index++) {
       this.tarifa.push({
         id: faker.datatype.uuid(),
-        tarifa: faker.word,
+        tarifa: faker.random.word(),
       });
     }
   }

@@ -60,6 +60,7 @@ const {
     validatorHandler(updateUserDto, 'body'),
     async (req, res) => {
       try {
+        console.log("si entra hasta aca")
         const { id } = req.params;
         const body = req.body;
         const user = await service.update(id, body);
@@ -71,7 +72,7 @@ const {
       } catch (error) {
         res.status(404).json({
           message: error.message,
-        });
+        })
       }
     }
   );
@@ -84,7 +85,7 @@ const {
       try {
         const { id } = req.params;
         const body = req.body;
-        const user = await service.updateComplete(id, body);
+        const user = await service.update(id, body);
         res.json({
           message: 'update total',
           data: user,

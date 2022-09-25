@@ -19,7 +19,7 @@ const {
   
   //STATUS CODE
   
-  router.get(
+  /*router.get(
     '/:id',
     validatorHandler(getReservationId, 'params'),
     async (req, res, next) => {
@@ -35,7 +35,8 @@ const {
         next(error);
       }
     }
-  );
+  );*/
+
   router.post(
     '/',
     validatorHandler(createReservationDto, 'body'),

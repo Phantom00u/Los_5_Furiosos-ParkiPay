@@ -85,7 +85,7 @@ const {
       try {
         const { id } = req.params;
         const body = req.body;
-        const logo = await service.updateComplete(id, body);
+        const logo = await service.update(id, body);
         res.json({
           message: 'update total',
           data: logo,

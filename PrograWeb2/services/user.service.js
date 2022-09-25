@@ -40,7 +40,7 @@ class UserService {
       ...currentUser,
       ...changes,
     };
-    return this.products[index];
+    return this.user[index];
   }
 
   async delete(id) {

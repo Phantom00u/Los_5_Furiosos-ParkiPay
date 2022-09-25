@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 //SCHEMA PARA DATOS REQUERIDOS Y LOGICA DE NEGOCIO
-const id = Joi.string().alphanum();
+const id = Joi.string();
 const rolUsuario =Joi.string().alphanum();
 
 const createRolUsuarioDto = Joi.object({

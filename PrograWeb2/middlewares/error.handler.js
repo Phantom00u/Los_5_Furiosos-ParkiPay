@@ -5,10 +5,11 @@ function logErrors(err, req, res, next) {
 }
 const errorHandler = (err, req, res) => {
   console.log(res);
-  res.status(500).json({
+  /*res.status(500).json({
     message: err.message,
     stack: err.stack,
-  });
+  });*/
+ 
 };
 
 const boomErrorHandler = (err, req, res, next) => {

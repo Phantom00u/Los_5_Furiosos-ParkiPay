@@ -85,7 +85,7 @@ const {
       try {
         const { id } = req.params;
         const body = req.body;
-        const rolUsuario = await service.updateComplete(id, body);
+        const rolUsuario = await service.update(id, body);
         res.json({
           message: 'update total',
           data: rolUsuario,

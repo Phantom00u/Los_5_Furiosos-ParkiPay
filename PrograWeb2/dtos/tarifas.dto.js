@@ -1,8 +1,8 @@
 const Joi = require('joi');
 
 //SCHEMA PARA DATOS REQUERIDOS Y LOGICA DE NEGOCIO
-const id = Joi.string().alphanum();
-const tarifa =Joi.number();
+const id = Joi.string();
+const tarifa =Joi.string();
 
 const createTarifaDto = Joi.object({
     id: id.required(),

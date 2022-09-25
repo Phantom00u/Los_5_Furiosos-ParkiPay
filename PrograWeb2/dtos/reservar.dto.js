@@ -1,10 +1,10 @@
 const Joi = require('joi');
 
 //SCHEMA PARA DATOS REQUERIDOS Y LOGICA DE NEGOCIO
-const id = Joi.string().alphanum();
-const code =Joi.string().alphanum();
-const idUser = Joi.string().alphanum();
-const idEst = Joi.string().alphanum();
+const id = Joi.string();
+const code =Joi.string();
+const idUser = Joi.string();
+const idEst = Joi.string();
 const parkinglot = Joi.string().min(1).max(200);
 const cost = Joi.number().integer().min(20).max(40);
 const arrivingTime = Joi.number().integer().min(1).max(24);
