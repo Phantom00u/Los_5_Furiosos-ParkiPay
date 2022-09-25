@@ -8,7 +8,7 @@ const {
 	loginUserDto,
   } = require('../dtos/user.dto');
 
-router.get('/', validatorHandler(loginUserDto, 'params'), async (req, res) => {
+router.post('/', validatorHandler(loginUserDto, 'params'), async (req, res) => {
     let username = req.query.username;
 	let password = req.query.password;
 	let sessionUser = "";
