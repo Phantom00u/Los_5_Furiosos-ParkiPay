@@ -4,6 +4,7 @@ const loginService = require('./login.router');
 const registerService = require('./register.router');
 const reserveService = require('./reservar.router');
 const tarifaService = require('./tarifas.router');
+const rolUsuarioService = require('./rolUsuario.router');
 const commentsService = require('./comments.router');
 
 function routerApi(app) {
@@ -13,6 +14,7 @@ function routerApi(app) {
   router.use('/signin', registerService);
   router.use('/reserve', reserveService);
   router.use('/tarifas', tarifaService);
+  router.use('/rolUsuario', rolUsuarioService);
   router.use('/comments', commentsService);
   //router.use('/users', productsRouter);
   //router.use('/categories', productsRouter);
