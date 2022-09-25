@@ -1,34 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const EstablecimientoService = require('../services/establecimientos.service');
+const CommentService = require('../services/comments.service');
 const validatorHandler = require('../middlewares/validator.handler');
-const service = new EstablecimientoService();
+const service = new CommentService();
 const {
-  createEstablecimiento,
-  updateEstablecimiento,
-  getEstablecimientoID,
-} = require('../dtos/establecimientos.dto');
+  createComment,
+  updateComment,
+  getCommentID,
+} = require('../dtos/Comment.dto');
 
 router.get('/', async (req, res) => {
   const { size } = req.query;
   const limit = size || 10;
-  const Establecimientos = await service.find(limit);
-  res.json(Establecimientos);
+  const Comments = await service.find(limit);
+  res.json(Comments);
 });
 
 //STATUS CODE
 
 router.get(
   '/:id',
-  validatorHandler(getEstablecimientoID, 'params'),
+  validatorHandler(getCommentID, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const Establecimiento = await service.findOne(id);
+      const Comment = await service.findOne(id);
       res.json({
         success: true,
-        message: 'Este es el establecimiento encontrado',
-        data: Establecimiento,
+        message: 'Este es el comentario encontrado',
+        data: Comment,
       });
     } catch (error) {
       next(error);
@@ -37,15 +37,15 @@ router.get(
 );
 router.post(
   '/',
-  validatorHandler(createEstablecimiento, 'body'),
+  validatorHandler(createComment, 'body'),
   async (req, res, next) => {
     const body = req.body;
     try {
-      const newEstablecimiento = await service.create(body);
+      const newComment = await service.create(body);
       res.json({
         success: true,
-        message: 'Establecimiento creado correctamente',
-        data: newEstablecimiento,
+        message: 'Comentario creado correctamente',
+        data: newComment,
       });
     } catch (error) {
       next(error);
@@ -56,16 +56,16 @@ router.post(
 //MENSAJES DE ERROR
 router.patch(
   '/:id',
-  validatorHandler(getEstablecimientoID, 'params'),
-  validatorHandler(updateEstablecimiento, 'body'),
+  validatorHandler(getCommentID, 'params'),
+  validatorHandler(updateComment, 'body'),
   async (req, res) => {
     try {
       const { id } = req.params;
       const body = req.body;
-      const Establecimiento = await service.update(id, body);
+      const Comment = await service.update(id, body);
       res.json({
         message: 'update',
-        data: Establecimiento,
+        data: Comment,
         id,
       });
     } catch (error) {
@@ -78,16 +78,16 @@ router.patch(
 
 router.put(
   '/:id',
-  validatorHandler(getEstablecimientoID, 'params'),
-  validatorHandler(updateEstablecimiento, 'body'),
+  validatorHandler(getCommentID, 'params'),
+  validatorHandler(updateComment, 'body'),
   async (req, res) => {
     try {
       const { id } = req.params;
       const body = req.body;
-      const Establecimiento = await service.updateComplete(id, body);
+      const Comment = await service.updateComplete(id, body);
       res.json({
         message: 'update total',
-        data: Establecimiento,
+        data: Comment,
         id,
       });
     } catch (error) {
@@ -100,7 +100,7 @@ router.put(
 
 router.delete(
   '/:id',
-  validatorHandler(getEstablecimientoID, 'params'),
+  validatorHandler(getCommentID, 'params'),
   async (req, res) => {
     const { id } = req.params;
     res.json({

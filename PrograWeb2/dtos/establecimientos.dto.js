@@ -29,7 +29,7 @@ const createEstablecimiento = Joi.object({
 const updateEstablecimiento = Joi.object({
   isActive: isActive,
   name: name,
-  address: address.required(),
+  address: address,
   parkinglot: parkinglot,
   image: image,
 });
