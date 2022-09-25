@@ -101,7 +101,7 @@ const {
   
   router.delete(
     '/:id',
-    validatorHandler(getlogoId, 'params'),
+    validatorHandler(getLogoEstacionamientoId, 'params'),
     async (req, res) => {
       const { id } = req.params;
       res.json({

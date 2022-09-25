@@ -7,7 +7,7 @@ const service = new UserService();
 const {
 	createLogoDto,
     updateLogoDto,
-  getLogoId,
+    getLogoId,
   } = require('../dtos/logos.dto');
 
   router.get('/', async (req, res) => {
@@ -101,7 +101,7 @@ const {
   
   router.delete(
     '/:id',
-    validatorHandler(getlogoId, 'params'),
+    validatorHandler(getLogoId, 'params'),
     async (req, res) => {
       const { id } = req.params;
       res.json({

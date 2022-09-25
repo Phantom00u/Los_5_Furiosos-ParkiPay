@@ -100,7 +100,7 @@ const {
   
   router.delete(
     '/:id',
-    validatorHandler(getuserId, 'params'),
+    validatorHandler(getUserId, 'params'),
     async (req, res) => {
       const { id } = req.params;
       res.json({

@@ -9,7 +9,7 @@ class UserService {
     for (let index = 0; index < limit; index++) {
       this.user.push({
         id: faker.datatype.uuid(),
-        username: faker.name.fullName(),
+        username: faker.name.firstName(),
         name: faker.commerce.productName(),
         password: parseInt(faker.commerce.price(), 10),
         telephone: faker.phone.telephone,

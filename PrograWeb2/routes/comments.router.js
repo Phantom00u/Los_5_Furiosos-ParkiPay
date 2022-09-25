@@ -7,7 +7,7 @@ const {
   createComment,
   updateComment,
   getCommentID,
-} = require('../dtos/Comment.dto');
+} = require('../dtos/comments.dto');
 
 router.get('/', async (req, res) => {
   const { size } = req.query;

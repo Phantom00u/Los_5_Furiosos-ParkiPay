@@ -2,7 +2,7 @@ const express = require('express');
 const faker = require('faker');
 const router = express.Router();
 const validatorHandler = require('./../middlewares/validator.handler');
-const UserService = require('../services/rolesUsuario.service');
+const UserService = require('../services/rolUsuario.service');
 const service = new UserService();
 const {
 	createRolUsuarioDto,
