@@ -54,7 +54,6 @@ class CommentsService {
         Comment,
       CONFLICT,
       'CONFLICTO, El Comentario esta bloqueado.',
-      (data) => data.isActive == false
     );
     return Comment;
   }

@@ -5,7 +5,7 @@ const id = Joi.string().alphanum();
 const rolUsuario =Joi.string().alphanum();
 
 const createRolUsuarioDto = Joi.object({
-    idUser: idUser.required(),
+    id: id.required(),
     rolUsuario: rolUsuario.required(),
 });
 
