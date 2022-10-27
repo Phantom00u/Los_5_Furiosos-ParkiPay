@@ -1,6 +1,5 @@
 import './main.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import imag_estacionamiento from './estacionamiento.png';
 import {Lista_establecimientos} from '../lists/Lista_establecimientos'
 
 

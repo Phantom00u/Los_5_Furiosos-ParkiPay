@@ -1,7 +1,7 @@
 import '../pages/register-page/registro_page.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export function Form_register(cambiarestado){
+export function Form_register(){
     
     
     return <>

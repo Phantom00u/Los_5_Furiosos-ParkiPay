@@ -1,9 +1,6 @@
 import './lista_est.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
 

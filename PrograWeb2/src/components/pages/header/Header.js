@@ -2,9 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import parkipaylogo from "./logoparkipay.png";
 import { Form_search_park } from '../../forms/Form_search_park';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 import styled from 'styled-components';
@@ -34,6 +31,8 @@ function Header_usernoactive(){
     </div>
   </>
 }
+
+/*
 function Header_user_admin(){
 
   return<>
@@ -48,6 +47,7 @@ function Header_user_admin(){
     </div>
   </>
 }
+*/
 
 export function Header({ user_active }){
     return <Header_style>

@@ -1,12 +1,12 @@
 import './lista_reserva.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from 'styled-components';
-import {
+/*import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
-} from "react-router-dom";
+} from "react-router-dom";*/
 
 export function Lista_reserva() {
 
