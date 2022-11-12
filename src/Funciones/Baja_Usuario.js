@@ -1,14 +1,14 @@
 import {$,jQuery} from 'jquery';
 
 export default function ajaxBajaUsuario(){
-    let id = document.getElementsByName("id_user")[0].value;
-    var formData = new FormData();
-    formData.append('id', id);
-    formData.append('submit', 3);
+    let idP = document.getElementsByName("id_user")[0].value;
+    var body = {
+        id: idP,
+    }
     $.ajax({
         url: "./",
         type: "POST",
-        data: formData,
+        data: JSON.stringify(body),
         success: function (msg) {
             console.log(msg);
             okay = msg;

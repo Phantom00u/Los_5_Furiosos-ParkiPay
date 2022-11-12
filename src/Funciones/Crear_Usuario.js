@@ -1,23 +1,23 @@
  
 import {$} from 'jquery';
 export default function ajaxRegistroUsuario(){
-    let nombre = document.getElementsByName("name_user")[0].value;
-    let usuario = document.getElementsByName("username_user")[0].value;
-    let correo = document.getElementsByName("email_user")[0].value;
-    let telefono = document.getElementsByName("tel_user")[0].value;
-    let credencial = document.getElementsByName("pssw_user")[0].value;
-    if(validarDatos(nombre,usuario,correo,telefono,credencial)){
-        var formData = new FormData();
-        formData.append('nombre', nombre);
-        formData.append('usuario', usuario);
-        formData.append('correo', correo);
-        formData.append('telefono', telefono);
-        formData.append('credencial', credencial);
-        formData.append('submit', 1);
+    let nombreP = document.getElementsByName("name_user")[0].value;
+    let usuarioP = document.getElementsByName("username_user")[0].value;
+    let correoP = document.getElementsByName("email_user")[0].value;
+    let telefonoP = document.getElementsByName("tel_user")[0].value;
+    let credencialP = document.getElementsByName("pssw_user")[0].value;
+    if(validarDatos(nombreP,usuarioP,correoP,telefonoP,credencialP)){
+        var body = {
+            nombre: nombreP,
+            usuario: usuarioP,
+            correo: correoP,
+            telefono: telefonoP,
+            credencial: credencialP
+        }
         $.ajax({
-            url: "./",
+            url: "./localhost/api/signin",
             type: "POST",
-            data: formData,
+            data: JSON.stringify(body),
             success: function(msg){
                 console.log(msg);
             },
