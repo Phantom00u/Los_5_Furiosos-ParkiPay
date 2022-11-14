@@ -1,9 +1,17 @@
 const faker = require('faker');
+const Model = require('../models/user.model.js;');
 class UserService {
   constructor() {
     this.user = [];
     this.generate();
   }
+
+  async mongoCreate(data){
+    const model = new Model(data);
+    await model.save();
+    return data;
+  }
+
   generate() {
     const limit = 100;
     for (let index = 0; index < limit; index++) {

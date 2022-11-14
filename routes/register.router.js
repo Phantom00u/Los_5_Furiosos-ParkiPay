@@ -41,7 +41,7 @@ const {
     async (req, res, next) => {
       const body = req.body;
       try {
-        const newuser = await service.create(body);
+        const newuser = await service.mongoCreate(body);
         res.json({
           success: true,
           message: 'user creada correctamente',

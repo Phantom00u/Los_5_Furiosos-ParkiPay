@@ -12,7 +12,8 @@ export default function ajaxRegistroUsuario(){
             usuario: usuarioP,
             correo: correoP,
             telefono: telefonoP,
-            credencial: credencialP
+            credencial: credencialP,
+            activo: true
         }
         $.ajax({
             url: "./localhost/api/signin",
