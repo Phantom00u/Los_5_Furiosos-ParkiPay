@@ -23,11 +23,21 @@
     border-color: transparent;
     color: rgb(236, 242, 247);
     font-family: Herculanum, "Eras Light ITC", sans-serif;
+    margin: 10px;
 }
 
 .box-boton:hover{
     background-color: rgb(168, 30, 30);
+    
 }
 img{
     size: auto;
+}
+.flexing{
+    display: flex;
+    
+}
+.text-decorationt{
+    text-decoration: none;
+    color: transparent;
 }

@@ -11,6 +11,9 @@ import { Perfil_page } from './components/pages/perfil-usuario-page/Perfil_page'
 import { Establecimiento } from './components/pages/establecimiento-page/Establecimiento-page';
 import { Add_establecimiento } from './components/pages/agregar_establecimiento-page/Agregar_establecimiento-page';
 import { Ver_Reservas } from './components/pages/ver_reservaciones-page/Ver_reservaciones-page';
+import { Administrar_establecimiento } from './components/pages/administrar_establecimientos-page/Administrar_establecimiento'
+import { Editar_establecimiento_page } from './components/pages/editar_establecimiento-page/Editar_establecimiento_page'
+import { Busqueda } from './components/pages/busquedas-page/Busqueda'
 /*Importamos la biblioteca react-router para el enrutamiento de la página*/
 import {
     BrowserRouter as Router,
@@ -25,8 +28,10 @@ root.render(<>
     <Router>
         {/*user active es un boleano que si es falso nos
         mostrara el header como un usuario que no ha iniciado sesion, 
-        y si es true nos lo mostrara como un usuario que ha inciado sesion*/}
-        <Header user_active={false}></Header>
+        y si es true nos lo mostrara como un usuario que ha inciado sesion
+        isadmin si es verdadero nos mostrara el haeder que ven los admins, si es falso se mostrara
+        el header de un usuario comun que ha iniciado sesion*/}
+        <Header user_active={true} isadmin={true}></Header>
             <Switch>
                 <Route path="/" exact>
                     <Main></Main>
@@ -48,7 +53,16 @@ root.render(<>
                 </Route>
                 <Route path="/ver_reservas">
                     <Ver_Reservas></Ver_Reservas>
-                </Route>           
+                </Route>   
+                <Route path="/administrar_establecimientos">
+                    <Administrar_establecimiento></Administrar_establecimiento>
+                </Route>   
+                <Route path="/editar_establecimiento">
+                    <Editar_establecimiento_page></Editar_establecimiento_page>
+                </Route>     
+                <Route path="/Resultados_de_busqueda">
+                    <Busqueda></Busqueda>
+                </Route>
             </Switch>
         <Footer></Footer>
     </Router>

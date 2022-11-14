@@ -10,7 +10,7 @@ function Header_useractive(){
 
   return<>
     <div className="col-2 text-center">
-      <Link to="/mis_reservaciones" className="style-a">Mis reservaciones</Link>
+      <Link to="/ver_reservas" className="style-a">Mis reservaciones</Link>
     </div>
     <div className="col-2 text-center">
       <Link to="/perfil_de_usuario" className="style-a">
@@ -32,12 +32,12 @@ function Header_usernoactive(){
   </>
 }
 
-/*
+
 function Header_user_admin(){
 
   return<>
     <div className="col-2 text-center">
-        <Link to="/mis_reservaciones" className="style-a">Agregar establecimiento</Link>
+        <Link to="/administrar_establecimientos" className="style-a">Establecimientos</Link>
     </div>
     <div className="col-2 text-center">
         <Link to="/perfil_de_usuario" className="style-a">
@@ -47,9 +47,9 @@ function Header_user_admin(){
     </div>
   </>
 }
-*/
 
-export function Header({ user_active }){
+
+export function Header({ user_active, isadmin }){
     return <Header_style>
       
       <div className="header-app">
@@ -65,7 +65,9 @@ export function Header({ user_active }){
                 <Form_search_park></Form_search_park>
               </div>
 
-                {user_active ? Header_useractive() : Header_usernoactive() }                
+                {
+                  user_active? isadmin? Header_user_admin() : Header_useractive() : Header_usernoactive()
+                }                
 
             </div>
         </div>
