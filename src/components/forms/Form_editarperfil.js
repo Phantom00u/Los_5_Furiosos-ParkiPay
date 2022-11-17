@@ -1,5 +1,6 @@
 import '../pages/register-page/registro_page.css'
 import "bootstrap/dist/css/bootstrap.min.css";
+import ajaxEdicionUsuario from '../../Funciones/Crear_Usuario';
 
 export function Form_editarperfil(){
         return <>
@@ -14,7 +15,7 @@ export function Form_editarperfil(){
             <input type="tel" name="tel_user" defaultValue="812738212" placeholder="81..." required></input><br></br>
             <label>Contraseña</label><br></br>
             <input type="password" name="pssw_user" defaultValue="1234" placeholder="Contraseña" required></input><br></br><br></br>
-            <button className="box-boton">Aceptar</button><br></br>
+            <button  onClick={ajaxEdicionUsuario} className="box-boton">Aceptar</button><br></br>
         </div>
     </>
 }
