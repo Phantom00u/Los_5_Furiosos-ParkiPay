@@ -1,5 +1,6 @@
 import '../pages/login-page/login_page.css';
 import "bootstrap/dist/css/bootstrap.min.css";
+import ajaxLogin from '../../Funciones/Login_Usuario';
 
 export function Form_login(){
     
@@ -8,6 +9,6 @@ export function Form_login(){
             <input name="correo" type="email" placeholder="exaple@gmail.com" required></input><br></br>
             <label>Contraseña</label><br></br>
             <input nome="contraseña"type="password" placeholder="Contraseña" required></input><br></br><br></br>
-            <button className="box-boton">Aceptar</button><br></br>
+            <button onClick={ajaxLogin} className="box-boton">Aceptar</button><br></br>
     </>
 }

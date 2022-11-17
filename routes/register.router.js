@@ -44,7 +44,7 @@ const {
         const newuser = await service.mongoCreate(body);
         res.json({
           success: true,
-          message: 'user creada correctamente',
+          message: 'user creado correctamente',
           data: newuser,
         });
       } catch (error) {

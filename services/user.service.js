@@ -12,6 +12,19 @@ class UserService {
     return data;
   }
 
+  async mongoLogin(limit, filter){
+    let users = await UserModel.find(filter);
+
+    if (users == undefined || users == null)
+      throw boom.notFound(errNotFound);
+    if (users.length <= 0)
+      throw boom.notFound(errEmpty);
+
+    users = users.filter((item, index) => item && index < limit);
+
+    return users;
+  }
+
   generate() {
     const limit = 100;
     for (let index = 0; index < limit; index++) {

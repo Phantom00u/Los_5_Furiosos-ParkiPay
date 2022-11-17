@@ -3,25 +3,17 @@ import {$,jQuery} from 'jquery';
 export default function ajaxLogin(){
     let correoP = document.getElementsByName("correo")[0].value;
     let credencialP = document.getElementsByName("contraseña")[0].value;
-    var body = {
-        correo: correoP,
-        credencial: credencialP
-    }
     if(validarDatos(correoP,credencialP)){
-    $.ajax({
-        url: "./localhost/api/login",
-        type: "POST",
-        data: JSON.stringify(body),
-        success: function (msg) {
-            console.log(msg);
-            okay = msg;
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        async: false
-    });
-}
+        const cookie = new Cookies();
+        const response = await fetch(`http://localhost/api/login?e=${correoP}&p=${credencialP}`);
+        const respJson = await response.json();
+        if (respJson.success) {
+          //cookies.set(constants.CookieUserID, respJson.Data[0]._id, { path: '/' })
+          //cookies.set(constants.CookieIsLogedIn, true, { path: '/' })
+          //navigate('/home');
+          return;
+        }
+    }
  }
 
  function validarDatos(correoP, credencialP){
