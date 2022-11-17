@@ -1,13 +1,14 @@
 import {$,jQuery} from 'jquery';
-
+let idP = document.getElementsByName("id_user")[0].value;
+let nombreP = document.getElementsByName("name_user")[0].value;
+let usuarioP = document.getElementsByName("username_user")[0].value;
+let correoP = document.getElementsByName("email_user")[0].value;
+let telefonoP = document.getElementsByName("tel_user")[0].value;
+let credencialP = document.getElementsByName("pssw_user")[0].value;
 export default function ajaxEdicionUsuario(){
-    let nombreP = document.getElementsByName("name_user")[0].value;
-    let usuarioP = document.getElementsByName("username_user")[0].value;
-    let correoP = document.getElementsByName("email_user")[0].value;
-    let telefonoP = document.getElementsByName("tel_user")[0].value;
-    let credencialP = document.getElementsByName("pssw_user")[0].value;
-    if(validarDatos(nombre,usuario,correo,telefono,credencial)){
+    if(validarDatos()){
         var body = {
+            id: idP,
             nombre: nombreP,
             usuario: usuarioP,
             correo: correoP,
@@ -15,8 +16,8 @@ export default function ajaxEdicionUsuario(){
             credencial: credencialP
         }
         $.ajax({
-            url: "./localhost/api/signin",
-            type: "POST",
+            url: "./localhost/api/login",
+            type: "PATCH",
             data: JSON.stringify(body),
             success: function(msg){
                 console.log(msg);
@@ -30,12 +31,11 @@ export default function ajaxEdicionUsuario(){
     } 
  }
 
- function validarDatos(nombreP, usuarioP, correoP, telefonoP, credencialP){
+ function validarDatos(){
     let errores = 0;
     let txt = "";
     if(nombreP ==""){
-        txt = txt + "El nombre está vacío.\n";
-        errores++;
+        nombreP = null;
     }else{
         let regexNombre = /^[a-zA-Z\sñÁÉÍÓÚáéíóúàèìòùÀÈÌÒÙ]*$/;
         if(!regexNombre.test(nombreP)){
@@ -50,8 +50,7 @@ export default function ajaxEdicionUsuario(){
 
     let regexNombreYCredencial = /^[a-zA-ZñÑ0-9¿?¡!@#$%&]*$/;
     if(usuarioP ==""){
-        txt = txt + "El usuario está vacío.\n";
-        errores++;
+        usuarioP = null;
     }else{  
         if(!regexNombreYCredencial.test(usuarioP)){
             txt = txt + "El usuario solo puede contener letras, numeros o los siguientes simbolos ¿?¡!@#$%&.\n"
@@ -64,8 +63,7 @@ export default function ajaxEdicionUsuario(){
     }
 
     if(credencialP ==""){
-        txt = txt + "La contraseña está vacía.\n";
-        errores++;
+        credencialP = null;
     }else{  
         if(!regexNombreYCredencial.test(credencialP)){
             txt = txt + "La contraseña solo puede contener letras, numeros o los siguientes simbolos ¿?¡!@#$%&.\n"
@@ -78,8 +76,7 @@ export default function ajaxEdicionUsuario(){
     }
 
     if(telefonoP ==""){
-        txt = txt + "El campo de telefono está vacío.\n";
-        errores++;
+        telefonoP = null;
     }else{
         let regexTelefono = /^[0-9]*$/;
         if(!regexTelefono.test(telefonoP)){
@@ -93,8 +90,7 @@ export default function ajaxEdicionUsuario(){
     }
     
     if(correoP ==""){
-        txt = txt + "El correo está vacío.\n";
-        errores++;
+        correoP = null;
     }else{
         let regexCorreo = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
         if(!regexCorreo.test(correoP)){

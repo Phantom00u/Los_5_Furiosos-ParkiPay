@@ -25,6 +25,45 @@ class UserService {
     return users;
   }
 
+  async mongoUpdate(body) {
+
+    let userToChange = await Model.findOne({
+      _id: body['id']
+    });
+
+    if (userToChange == undefined || userToChange == null)
+      throw boom.notFound(errNotFound);
+    if (userToChange.length <= 0)
+      throw boom.notFound(errEmpty);
+
+    let originalUser = {
+      nombre: userToChange.nombre,
+      usuario: userToChange.usuario,
+      correo: userToChange.correo,
+      telefono: userToChange.telefono,
+      credencial: userToChange.credencial
+    };
+
+    const {
+      nombreC, usuarioC, correoC, telefonoC, credencialC
+    } = changes;
+
+    if (nombreC)
+      userToChange.nombre = nombreC;
+    if (usuarioC)
+      userToChange.usuario = usuarioC;
+    if (correoC)
+      userToChange.correo = correoC;
+    if (telefonoC)
+      userToChange.telefono = telefonoC;
+    if (credencialC)
+      userToChange.credencial = credencialC;
+
+    await userToChange.save();
+
+    return true;
+  }
+
   generate() {
     const limit = 100;
     for (let index = 0; index < limit; index++) {

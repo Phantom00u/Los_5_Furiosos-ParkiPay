@@ -6,6 +6,7 @@ const UserService = require('../services/user.service');
 const service = new UserService();
 const {
 	loginUserDto,
+	updateUserDto
   } = require('../dtos/user.dto');
 
   router.get('/', async (req, res, next) => {
@@ -39,5 +40,24 @@ const {
 	}
   
   });
+
+  router.patch(
+    '/',
+    validatorHandler(updateUserDto, 'params'),
+    async (req, res, next) => {
+	const body = req.body;
+      try {
+        const { id } = req.params;
+        const user = await service.mongoUpdate(id);
+        res.json({
+          success: true,
+          message: 'Usuario editado correctamente',
+          data: user,
+        });
+      } catch (error) {
+        next(error);
+      }
+    }
+  );
 
   module.exports = router;

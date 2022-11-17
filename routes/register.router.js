@@ -19,7 +19,7 @@ const {
   //STATUS CODE
   
   router.get(
-    '/:id',
+    '/',
     validatorHandler(getUserId, 'params'),
     async (req, res, next) => {
       try {
