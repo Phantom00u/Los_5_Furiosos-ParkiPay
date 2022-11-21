@@ -61,5 +61,5 @@
     "stylelint": "^14.14.0",
     "stylelint-config-standard": "^29.0.0"
   },
-  "proxy": "http://localhost:3000/api/"
+  "proxy": "http://localhost:3001/api/"
 }
