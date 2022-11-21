@@ -11,32 +11,55 @@ const {
   getReservationId,
   } = require('../dtos/reservar.dto');
 
-  router.get('/', async (req, res) => {
-    const { size } = req.query;
-    const limit = size || 10;
-    const rolesUsuario = await service.find(limit);
-    res.json(rolesUsuario);
+
+//Obtener una sola reservacion por usuario
+router.get('/', async (req, res, next) => {
+  const body = req.body;
+  try {
+    const reservations = await service.mongoReadOne(body["id"]);
+    res.json({
+      success: true,
+      message: 'Reservaciones via id usuario',
+      data: reservations,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+  //Obtener todas las reservaciones por Usuario
+  router.get('/GetReservationUser', async (req, res, next) => {
+    //const { size } = req.query;
+    const limit = 10;
+    const body = req.body;
+    try {
+      const reservations = await service.MongoGetAllViaUser(limit,body);
+      res.json({
+        success: true,
+        message: 'Reservaciones via id usuario',
+        data: reservations,
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  //Obtener todas las reservaciones por establecimiento
+  router.get('/GetReservationEstablishment', async (req, res, next) => {
+    const limit = 10;
+    const body = req.body;
+    try {
+      const reservations = await service.MongoGetAllViaEstablishment(limit,body);
+      res.json({
+        success: true,
+        message: 'Reservaciones via id establecimiento',
+        data: reservations,
+      });
+    } catch (error) {
+      next(error);
+    }
   });
   
-  //STATUS CODE
-  
-  /*router.get(
-    '/:id',
-    validatorHandler(getReservationId, 'params'),
-    async (req, res, next) => {
-      try {
-        const { id } = req.params;
-        const reservacion = await service.findOne(id);
-        res.json({
-          success: true,
-          message: 'Esta es la reservacion encontrado',
-          data: reservacion,
-        });
-      } catch (error) {
-        next(error);
-      }
-    }
-  );*/
 
   router.post(
     '/',

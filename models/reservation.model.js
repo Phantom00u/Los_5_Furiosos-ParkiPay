@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const reservationSchema = mongoose.Schema({
     id: mongoose.Types.ObjectId,
     idUser: String,
-    idEstacionamiento: String,
+    idEstablecimiento: String,
     parkinglot: String,
     cost: String,
     arrivingTime: String,

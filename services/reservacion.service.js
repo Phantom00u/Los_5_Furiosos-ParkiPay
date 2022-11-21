@@ -13,16 +13,47 @@ class ReservacionesService {
 
   async mongoReadOne(id){
     const reservation = await Model.findOne({
-      _id: id
+      idUser: id
     });
 
     return reservation
   }
 
+  async MongoGetAllViaUser(limit, filter){
+    let reservation = await Model.find(filter)
+
+    if (reservation == undefined || reservation == null)
+    throw boom.notFound(errNotFound);
+    else if (reservation.length <= 0)
+    throw boom.notFound(errEmpty);
+
+    if(limit){
+      reservation = reservation.filter((item,index)=> item && index < limit);
+    }
+
+    return reservation;
+  }
+
+  async MongoGetAllViaEstablishment(limit, filter){
+    let reservation = await Model.find(filter)
+
+    if (reservation == undefined || reservation == null)
+    throw boom.notFound(errNotFound);
+    else if (reservation.length <= 0)
+    throw boom.notFound(errEmpty);
+
+    if(limit){
+      reservation = reservation.filter((item,index)=> item && index < limit);
+    }
+
+    return reservation;
+
+  }
+
   async mongoUpdate(id, body) {
 
     let reservationToChange = await Model.findOne({
-      _id: id
+      idUser: id
     });
 
     if (reservationToChange == undefined || reservationToChange == null)
