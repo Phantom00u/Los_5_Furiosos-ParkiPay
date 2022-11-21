@@ -1,9 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../register-page/registro_page.css";
 import { Form_register } from '../../forms/Form_register';
+import axios from "axios"
+import { useEffect } from "react";
 
 export function Registro_page(){
-
+   /* const[posts,setPosts] = useState([]);
+    
+    useEffect(()=>{
+        const fetchPosts = async ()=>{
+            const res =  await axios.get("/");
+            console.log(res)
+        }
+    },[])*/
     return <>
          <div className="box-section">
             <div className="box-right text-center py-3">

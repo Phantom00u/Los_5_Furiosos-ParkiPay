@@ -48,6 +48,7 @@ const {
           data: newuser,
         });
       } catch (error) {
+        
         next(error);
       }
     }

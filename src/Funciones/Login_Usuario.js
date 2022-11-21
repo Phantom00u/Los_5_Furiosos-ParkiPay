@@ -5,8 +5,8 @@ export default function ajaxLogin(){
     let credencialP = document.getElementsByName("contraseña")[0].value;
     if(validarDatos(correoP,credencialP)){
         const cookie = new Cookies();
-        const response = await fetch(`http://localhost/api/login?e=${correoP}&p=${credencialP}`);
-        const respJson = await response.json();
+        const response =  fetch(`http://localhost/api/login?e=${correoP}&p=${credencialP}`);
+        const respJson =  response.json();
         if (respJson.success) {
           //cookies.set(constants.CookieUserID, respJson.Data[0]._id, { path: '/' })
           //cookies.set(constants.CookieIsLogedIn, true, { path: '/' })

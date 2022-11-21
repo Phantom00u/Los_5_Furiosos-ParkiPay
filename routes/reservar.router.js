@@ -4,6 +4,7 @@ const router = express.Router();
 const ResService = require('../services/reservacion.service');
 const validatorHandler = require('./../middlewares/validator.handler');
 const service = new ResService();
+
 const {
 	createReservationDto,
   updateReservationDto,
@@ -43,7 +44,7 @@ const {
     async (req, res, next) => {
       const body = req.body;
       try {
-        const newreservacion = await service.create(body);
+        const newreservacion = await service.mongoCreate(body);
         res.json({
           success: true,
           message: 'reservacion creada correctamente',
@@ -64,9 +65,9 @@ const {
       try {
         const { id } = req.params;
         const body = req.body;
-        const reservacion = await service.update(id, body);
+        const reservacion = await service.mongoUpdate(id, body);
         res.json({
-          message: 'update',
+          message: 'se ha actualizado la reservacion',
           data: reservacion,
           id,
         });
@@ -105,8 +106,10 @@ const {
     validatorHandler(getReservationId, 'params'),
     async (req, res) => {
       const { id } = req.params;
+      const reservacion = await service.mongoDelete(id);
       res.json({
         message: 'delete',
+        data: reservacion,
         id,
       });
     }

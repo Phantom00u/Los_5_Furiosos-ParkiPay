@@ -1,5 +1,5 @@
  
-import {$} from 'jquery';
+import {$,jQuery} from 'jquery';
 export default function ajaxRegistroUsuario(){
     let nombreP = document.getElementsByName("name_user")[0].value;
     let usuarioP = document.getElementsByName("username_user")[0].value;
@@ -86,7 +86,7 @@ export default function ajaxRegistroUsuario(){
             txt = txt + "El telefono solo puede contener numeros.\n"
             errores++;
         }
-        if(telefonoP.length != 8){
+        if(telefonoP.length != 10){
             txt = txt + "El telefono debe tener 8 caracteres.\n"
             errores++;
         }

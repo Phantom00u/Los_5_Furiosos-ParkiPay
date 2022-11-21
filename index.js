@@ -9,7 +9,7 @@ const {
 const app = express();
 const port = 3000;
 
-const uri = "mongodb+srv://<general>:<general>@prograweb2.9ompijn.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://MalditoEnfermito:IWjvVxjKCWVfKoPa@prograweb2.9ompijn.mongodb.net/?retryWrites=true&w=majority";
 
 async function connect(){
   try{

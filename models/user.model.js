@@ -8,5 +8,5 @@ const userSchema = mongoose.Schema({
     credencial: String,
     activo: Boolean
 });
-const model = mongoose.model('usuario', userSchema);
+const model = mongoose.model('usuarios', userSchema);
 module.exports = model;

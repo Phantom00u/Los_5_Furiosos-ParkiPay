@@ -1,5 +1,5 @@
 const faker = require('faker');
-const Model = require('../models/user.model.js;');
+const Model = require('../models/user.model.js');
 class UserService {
   constructor() {
     this.user = [];
