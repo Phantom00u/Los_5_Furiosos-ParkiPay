@@ -1,5 +1,10 @@
 const faker = require('faker');
-const Model = require('../models/user.model.js');
+const boom = require('@hapi/boom');
+const UserModel = require('../models/user.model.js');
+
+const errNotFound = "No se logró encontrar lo buscado";
+const errEmpty = "Aún no hay cuentas creadas";
+
 class UserService {
   constructor() {
     this.user = [];
@@ -7,7 +12,7 @@ class UserService {
   }
 
   async mongoCreate(data){
-    const model = new Model(data);
+    const model = new UserModel(data);
     await model.save();
     return data;
   }
@@ -27,7 +32,7 @@ class UserService {
 
   async mongoUpdate(body) {
 
-    let userToChange = await Model.findOne({
+    let userToChange = await UserModel.findOne({
       _id: body['id']
     });
 

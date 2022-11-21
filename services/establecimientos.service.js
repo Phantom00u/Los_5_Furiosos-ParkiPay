@@ -1,68 +1,64 @@
-const faker = require('faker');
+//const faker = require('faker');
 const boom = require('@hapi/boom');
 const { validateData, NOTFOUND, CONFLICT } = require('../utils');
+const Model = require('../models/establecimiento.model.js');
+
+const errNotFound = 'No se logró encontrar lo buscado';
+const errEmpty = 'Aún no hay establecimientos creados';
 
 class EstablecimientosService {
-  constructor() {
-    this.Establecimientos = [];
-    this.generate();
-  }
-  generate() {
-    const limit = 100;
-    for (let index = 0; index < limit; index++) {
-      this.Establecimientos.push({
-        isActive: faker.datatype.boolean(),
-        id: faker.datatype.uuid(),
-        name: faker.company.companyName(),
-        parkinglot: faker.datatype.number({ min: 10, max: 100}),
-        address: faker.address.streetAddress(),
-        image: faker.image.imageUrl(),
-      });
-    }
-  }
+  constructor() {}
 
   //FAKER
-  
+
   //-----------------------------------------------------------------------------------
   //Crear Establecimientos
   async create(data) {
-    const newEstablecimiento = {
-      id: faker.datatype.uuid(),
-      ...data,
-    };
-    this.Establecimientos.push(newEstablecimiento);
-    return newEstablecimiento;
+    const model = new Model(data);
+    await model.save();
+    return model;
   }
 
-  find(limit) {
-    return new Promise((resolve, rejected) => {
-      setTimeout(() => {
-        var Establecimientos = this.Establecimientos.slice(0, limit);
-        if (Establecimientos.length > 0) {
-          resolve(Establecimientos);
-        } else {
-          rejected('');
-        }
-      }, 5000);
-    });
+  //-----------------------------------------------------------------------------------
+  //Buscar Establecimientos
+
+  async find(limit) {
+    var Establecimientos = await Model.find();
+
+    if (Establecimientos == undefined || Establecimientos == null)
+      throw boom.notFound(errNotFound);
+    else if (Establecimientos.length <= 0) throw boom.notFound(errEmpty);
+
+    Establecimientos = Establecimientos.filter(
+      (item, index) => item && index < limit
+    );
+    return Establecimientos;
   }
 
   //-----------------------------------------------------------------------------------
   //Encontrar Establecimientos activos
-  findActiveEstablecimientos() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const activeEstablecimientos = this.Establecimientos.filter((x) => x.isActive === true);
-        resolve(activeEstablecimientos);
-      }, 2000);
+  async findActiveEstablecimientos() {
+    const filter = {};
+
+    Object.assign(filter, {
+      isActive: true,
     });
+
+    var Establecimientos = await Model.find(filter);
+    if (Establecimientos == undefined || Establecimientos == null)
+      throw boom.notFound(errNotFound);
+    else if (Establecimientos.length <= 0) throw boom.notFound(errEmpty);
+
+    return Establecimientos;
   }
 
   //-----------------------------------------------------------------------------------
   //Encontrar Establecimiento por ID
   async findOne(id) {
     //const name = this.getTotal(); PRUEBA DE ERROR DE TRY Y CATCH
-    const Establecimiento = this.Establecimientos.find((item) => item.id === id);
+    const Establecimiento = await Model.findOne({
+      _id: id,
+    });
     //NOT FOUND
     validateData(Establecimiento, NOTFOUND, 'No encontrado', (data) => !data);
     validateData(
@@ -77,20 +73,55 @@ class EstablecimientosService {
   //-----------------------------------------------------------------------------------
   //Actualizar Establecimiento por ID
   async update(id, changes) {
-    const index = this.Establecimientos.findIndex((item) => item.id === id);
+    let establecimientoACambiar = await Model.findOne({
+      _id: id,
+    });
 
-    if (index === -1) throw boom.notFound('Establecimiento no encontrado');
-    //throw new Error('Product not found'); Forma tradicional
+    if (establecimientoACambiar == undefined || establecimientoACambiar == null)
+      throw boom.notFound(errNotFound);
+    if (establecimientoACambiar.length <= 0) throw boom.notFound(errEmpty);
 
-    var currentEstablecimiento = this.Establecimientos[index];
-    this.Establecimientos[index] = {
-      ...currentEstablecimiento,
-      ...changes,
+    let establecimientoOriginal = {
+      isActive: establecimientoACambiar.isActive,
+      name: establecimientoACambiar.name,
+      address: establecimientoACambiar.address,
+      parkinglot: establecimientoACambiar.parkinglot,
+      hourPrice: establecimientoACambiar.hourPrice,
+      image: establecimientoACambiar.image,
     };
-    return this.Establecimientos[index];
+
+    const { isActive, name, address, parkinglot, hourPrice, image } = changes;
+    if (isActive !== undefined) establecimientoACambiar.isActive = isActive;
+    if (name) establecimientoACambiar.name = name;
+    if (address) establecimientoACambiar.address = address;
+    if (parkinglot) establecimientoACambiar.parkinglot = parkinglot;
+    if (hourPrice) establecimientoACambiar.hourPrice = hourPrice;
+    if (image) establecimientoACambiar.image = image;
+
+    await establecimientoACambiar.save();
+
+    return {
+      old: establecimientoOriginal,
+      changed: establecimientoACambiar,
+    };
   }
 
-  async updateComplete(id, changes) {
+  async addResenia(id, resenia) {
+    let establecimientoACambiar = await Model.findOne({
+      _id: id,
+    });
+
+    if (establecimientoACambiar == undefined || establecimientoACambiar == null)
+      throw boom.notFound(errNotFound);
+    if (establecimientoACambiar.length <= 0) throw boom.notFound(errEmpty);
+
+    establecimientoACambiar.resenias.push(resenia);
+    await establecimientoACambiar.save();
+
+    return establecimientoACambiar;
+  }
+
+  /*async updateComplete(id, changes) {
     const index = this.Establecimientos.findIndex((item) => item.id === id);
 
     if (index === -1) throw boom.notFound('Establecimiento no encontrado');
@@ -102,22 +133,23 @@ class EstablecimientosService {
       ...changes,
     };
     return this.Establecimientos[index];
-  }
+  }*/
 
   //-----------------------------------------------------------------------------------
   //Borrar Establecimiento por ID
   async delete(id) {
-    const index = this.Establecimientos.findIndex((item) => item.id == id);
-    if (index === -1) {
-      if (index === -1) throw boom.notFound('Establecimiento no encontrado');
-    }
-    this.Establecimientos.splice(index, 1);
-    return {
-      message: 'Eliminado',
-      id,
-    };
+    let establecimiento = await Model.findOne({
+      _id: id,
+    });
+
+    const { deletedCount } = await Model.deleteOne({
+      _id: id,
+    });
+
+    if (deletedCount <= 0) throw boom.notFound(errEmpty);
+
+    return establecimiento;
   }
 }
-
 
 module.exports = EstablecimientosService;

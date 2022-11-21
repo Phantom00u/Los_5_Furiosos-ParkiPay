@@ -8,6 +8,7 @@ const rolUsuarioService = require('./rolUsuario.router');
 const commentsService = require('./comments.router');
 const logosService = require('./logos.router');
 const logosEstacionamientosService = require('./logosEstacionamientos.router');
+const establecimientos = require('./establecimientos.router');
 
 function routerApi(app) {
   const router = express.Router();
@@ -20,6 +21,7 @@ function routerApi(app) {
   router.use('/comments', commentsService);
   router.use('/logos', logosService);
   router.use('/logosEstacionamientos', logosEstacionamientosService);
+  router.use('/establecimientos', establecimientos);
   //router.use('/users', productsRouter);
   //router.use('/categories', productsRouter);
 }

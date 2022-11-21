@@ -1,12 +1,13 @@
+/*
 import {$,jQuery} from 'jquery';
 
-export default function ajaxLogin(){
+export default async function ajaxLogin(){
     let correoP = document.getElementsByName("correo")[0].value;
     let credencialP = document.getElementsByName("contraseña")[0].value;
     if(validarDatos(correoP,credencialP)){
-        const cookie = new Cookies();
-        const response =  fetch(`http://localhost/api/login?e=${correoP}&p=${credencialP}`);
-        const respJson =  response.json();
+        //const cookie = new Cookies();
+        const response = await fetch(`http://localhost/api/login?e=${correoP}&p=${credencialP}`);
+        const respJson = await response.json();
         if (respJson.success) {
           //cookies.set(constants.CookieUserID, respJson.Data[0]._id, { path: '/' })
           //cookies.set(constants.CookieIsLogedIn, true, { path: '/' })
@@ -22,7 +23,7 @@ export default function ajaxLogin(){
     if(credencialP ==""){
         txt = txt + "La contraseña está vacía.\n";
         errores++;
-    }else{  
+    }else{
         if(!regexNombreYCredencial.test(credencialP)){
             txt = txt + "La contraseña solo puede contener letras, numeros o los siguientes simbolos ¿?¡!@#$%&.\n"
             errores++;
@@ -33,7 +34,7 @@ export default function ajaxLogin(){
         }
     }
 
-    
+
     if(correoP ==""){
         txt = txt + "El correo está vacío.\n";
         errores++;
@@ -52,3 +53,5 @@ export default function ajaxLogin(){
         return false;
     }
  }
+
+*/

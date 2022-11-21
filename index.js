@@ -1,21 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const routerApi = require('./routes/');
+const cors = require('cors');
+
 const {
   logErrors,
   errorHandler,
   boomErrorHandler,
 } = require('./middlewares/error.handler');
+//const { ESLint } = require('eslint');
 const app = express();
-const port = 3000;
+const port = 3001;
 
-const uri = "mongodb+srv://MalditoEnfermito:IWjvVxjKCWVfKoPa@prograweb2.9ompijn.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://user:user@prograweb2.9ompijn.mongodb.net/?retryWrites=true&w=majority";
+
+
+
+app.use(cors());
 
 async function connect(){
   try{
     await mongoose.connect(uri, {useNewUrlParser:true});
+    // eslint-disable-next-line no-console
     console.log("connected to MongoDB");
   }catch(error){
+    // eslint-disable-next-line no-console
     console.error(error);
   }
 }
@@ -31,8 +40,8 @@ routerApi(app);
 app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
-// eslint-disable-next-line no-console
 connect();
+// eslint-disable-next-line no-console
 app.listen(port, () => console.log('Mi puerto', port));
 
 

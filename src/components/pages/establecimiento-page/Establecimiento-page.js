@@ -10,6 +10,10 @@ export function Establecimiento(){
 
     const [estadoModal1, cambiarestadoModal1] = useState(false);
 
+
+
+
+
     return <>
         <Box_padre>
             <Box_hijo>
@@ -31,7 +35,7 @@ export function Establecimiento(){
                             <div className="box-p">
                                 <p className="p-name">Numero de lugares disponibles: </p><p>10</p>
                             </div>
-                            <Modal 
+                            <Modal
                                 estado={estadoModal1}
                                 cambiarestado={cambiarestadoModal1}>
                                 <Form_reservar></Form_reservar>
@@ -51,7 +55,7 @@ export function Establecimiento(){
                     <Lista_comentarios></Lista_comentarios>
                     <Lista_comentarios></Lista_comentarios>
             </Box_hijo>
-           
+
         </Box_padre>
     </>
 }
@@ -101,7 +105,7 @@ const Info_establecimiento = styled.div`
     border-bottom: solid;
     border-width: 10px;
     border-color:  rgb(243, 243, 243);
-    
+
 `;
 
 const Info_establecimiento_left = styled.div`
@@ -127,13 +131,13 @@ const Info_establecimiento_right = styled.div`
     .p-name{
         font-weight: bold;
     }
-    
+
     p{
         color: black;
         padding-left: 5px;
         margin: 0px;
     }
- 
+
 `;
 const Boton = styled.div`
 
@@ -156,7 +160,7 @@ const Boton = styled.div`
 `;
 
 const Comentar = styled.div`
-        
+
         height: auto;
         width: 100%;
         background-color: rgb(228, 228, 228);
