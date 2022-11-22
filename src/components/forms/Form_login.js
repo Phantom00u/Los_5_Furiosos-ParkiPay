@@ -8,7 +8,7 @@ export function Form_login(){
             <label>Correo electrónico</label><br></br>
             <input name="correo" type="email" placeholder="exaple@gmail.com" required></input><br></br>
             <label>Contraseña</label><br></br>
-            <input nome="contraseña"type="password" placeholder="Contraseña" required></input><br></br><br></br>
+            <input id="contraseña"type="password" placeholder="Contraseña" required></input><br></br><br></br>
             <button onClick={ajaxLogin} className="box-boton">Aceptar</button><br></br>
     </>
 }

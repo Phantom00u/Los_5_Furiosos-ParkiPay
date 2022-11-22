@@ -1,10 +1,10 @@
+import getCookie from '../../../Funciones/GetCookie';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import "bootstrap/dist/css/bootstrap.min.css";
 import './perfil_page.css';
 import Modal from './Modal';
 import { Form_editarperfil } from '../../forms/Form_editarperfil';
-
 export function Perfil_page(){
 
     const [estadoModal1, cambiarestadoModal1] = useState(false);
@@ -26,7 +26,7 @@ export function Perfil_page(){
                         <div className="box-columns">
                             <div className="box-perfil-multimedia text-center">
                                 <img className="img-foto" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp" height="170" width="170"></img>
-                                <p className="p-username">Todosenuno10</p>
+                                <p className="p-username">{getCookie("usuario")}</p>
                                 <Modal 
                                     estado={estadoModal1}
                                     cambiarestado={cambiarestadoModal1}>
@@ -36,13 +36,13 @@ export function Perfil_page(){
                             </div>
                             <div className="box-perfil-textos">
                                 <p className="p-bold">Nombre</p>
-                                    <p className="p-normal">Lauro Lucío Carlos Lara Delgadillo</p>
+                                    <p className="p-normal">{getCookie("nombre")}</p>
                                 <p className="p-bold">Nombre de usuario</p>
-                                    <p className="p-normal">Todosenuno19</p>
+                                    <p className="p-normal">{getCookie("usuario")}</p>
                                 <p className="p-bold">Correo</p>
-                                    <p className="p-normal">example@uanl.das</p>
+                                    <p className="p-normal">{getCookie("correo")}</p>
                                 <p className="p-bold">Teléfono</p>
-                                    <p className="p-normal">29381294</p>
+                                    <p className="p-normal">{getCookie("telefono")}</p>
                             </div>
                         </div>
                 </div>

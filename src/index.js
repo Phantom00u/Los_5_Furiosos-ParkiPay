@@ -1,3 +1,4 @@
+import getCookie from './Funciones/GetCookie';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
@@ -20,13 +21,15 @@ import {
 
 /*Obtenemos el id root del index.html de la carpeta public y renderizamos la interfaz*/
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
+let result = getCookie("nombre");
+let result2 = getCookie("dueño");
+console.log(result);
 root.render(<>
     <Router>
         {/*user active es un boleano que si es falso nos
         mostrara el header como un usuario que no ha iniciado sesion, 
         y si es true nos lo mostrara como un usuario que ha inciado sesion*/}
-        <Header user_active={false}></Header>
+        <Header user_active={result!="false"} user_dueño={result2!="false"}></Header>
             <Switch>
                 <Route path="/" exact>
                     <Main></Main>

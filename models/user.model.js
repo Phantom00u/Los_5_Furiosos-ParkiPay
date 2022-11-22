@@ -1,3 +1,4 @@
+const { uniqueSort } = require('jquery');
 const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
     id: mongoose.Types.ObjectId,
@@ -6,7 +7,8 @@ const userSchema = mongoose.Schema({
     email: String,
     telephone: String,
     password: String,
-    activo: Boolean
+    activo: Boolean,
+    dueño: Boolean
 });
 const model = mongoose.model('usuario', userSchema);
 module.exports = model;

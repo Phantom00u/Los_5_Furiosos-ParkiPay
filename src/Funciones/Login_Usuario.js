@@ -1,25 +1,31 @@
-/*
-import {$,jQuery} from 'jquery';
-
 export default async function ajaxLogin(){
     let correoP = document.getElementsByName("correo")[0].value;
-    let credencialP = document.getElementsByName("contraseña")[0].value;
+    let credencialP = document.getElementById("contraseña").value;
     if(validarDatos(correoP,credencialP)){
-        //const cookie = new Cookies();
-        const response = await fetch(`http://localhost/api/login?e=${correoP}&p=${credencialP}`);
+        const response = await fetch(`http://localhost:3001/api/login?e=${correoP}&p=${credencialP}`);
         const respJson = await response.json();
+        console.log(JSON.stringify(respJson));
         if (respJson.success) {
-          //cookies.set(constants.CookieUserID, respJson.Data[0]._id, { path: '/' })
-          //cookies.set(constants.CookieIsLogedIn, true, { path: '/' })
-          //navigate('/home');
-          return;
-        }
+            document.cookie = "nombre=" + respJson.Data[0]['name'] + ";";
+            document.cookie = "usuario=" + respJson.Data[0]['usuario'] + ";";
+            document.cookie = "correo=" + respJson.Data[0]['email'] + ";";
+            document.cookie = "telefono=" + respJson.Data[0]['telephone']+ ";";
+            document.cookie = "id=" + respJson.Data[0]['_id'] + ";";
+            document.cookie = "dueño=" + respJson.Data[0]['dueño'] + ";";
+            console.log(decodeURIComponent(document.cookie));
+            window.location.href = "/";
+            
+            alert("Sesión iniciada correctamente");
+            return;
+        }else
+            alert("Usuario no encontrado");
     }
  }
 
  function validarDatos(correoP, credencialP){
     let errores = 0;
     let txt = "";
+    let regexNombreYCredencial = /^[a-zA-ZñÑ0-9¿?¡!@#$%&]*$/;
     if(credencialP ==""){
         txt = txt + "La contraseña está vacía.\n";
         errores++;
@@ -53,5 +59,3 @@ export default async function ajaxLogin(){
         return false;
     }
  }
-
-*/

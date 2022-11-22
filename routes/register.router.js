@@ -9,12 +9,12 @@ const {
   getUserId,
   } = require('../dtos/user.dto');
 
-  router.get('/', async (req, res) => {
+  /*router.get('/', async (req, res) => {
     const { size } = req.query;
     const limit = size || 10;
     const rolesUsuario = await service.find(limit);
     res.json(rolesUsuario);
-  });
+  });*/
   
   //STATUS CODE
   
@@ -45,7 +45,7 @@ const {
         res.json({
           success: true,
           message: 'user creado correctamente',
-          data: newuser,
+          Data: newuser,
         });
       } catch (error) {
         
@@ -56,7 +56,7 @@ const {
   
   //MENSAJES DE ERROR
   router.patch(
-    '/:id',
+    '/',
     validatorHandler(getUserId, 'params'),
     validatorHandler(updateUserDto, 'body'),
     async (req, res) => {
@@ -79,7 +79,7 @@ const {
   );
   
   router.put(
-    '/:id',
+    '/',
     validatorHandler(getUserId, 'params'),
     validatorHandler(updateUserDto, 'body'),
     async (req, res) => {

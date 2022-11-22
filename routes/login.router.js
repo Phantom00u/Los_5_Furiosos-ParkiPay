@@ -28,7 +28,7 @@ const {
 		})
 	  }
   
-	  const users = await service.find(size || 10, filter)
+	  const users = await service.mongoLogin(size || 10, filter)
 	  res.json({
 		'success': true,
 		'message': 'Estos son los usuarios encontrados',
@@ -46,13 +46,12 @@ const {
     validatorHandler(updateUserDto, 'params'),
     async (req, res, next) => {
 	const body = req.body;
-      try {
-        const { id } = req.params;
-        const user = await service.mongoUpdate(id);
+    try {
+        const user = await service.mongoUpdate(body);
         res.json({
           success: true,
           message: 'Usuario editado correctamente',
-          data: user,
+          Data: user,
         });
       } catch (error) {
         next(error);

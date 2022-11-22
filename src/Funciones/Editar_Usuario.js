@@ -1,33 +1,46 @@
-import {$,jQuery} from 'jquery';
-let idP = document.getElementsByName("id_user")[0].value;
-let nombreP = document.getElementsByName("name_user")[0].value;
-let usuarioP = document.getElementsByName("username_user")[0].value;
-let correoP = document.getElementsByName("email_user")[0].value;
-let telefonoP = document.getElementsByName("tel_user")[0].value;
-let credencialP = document.getElementsByName("pssw_user")[0].value;
-export default function ajaxEdicionUsuario(){
+import getCookie from '../Funciones/GetCookie';
+let nombreP = "";
+let usuarioP = "";
+let correoP = "";
+let telefonoP = "";
+let credencialP = "";
+export default async function ajaxEdicionUsuario(nombrePP,usuarioPP,correoPP,telefonoPP,credencialPP){
+    nombreP = nombrePP;
+    usuarioP = usuarioPP;
+    correoP = correoPP;
+    telefonoP = telefonoPP;
+    credencialP = credencialPP;
     if(validarDatos()){
         var body = {
-            id: idP,
-            nombre: nombreP,
+            id: getCookie("id"),
+            name: nombreP,
             usuario: usuarioP,
-            correo: correoP,
-            telefono: telefonoP,
-            credencial: credencialP
+            email: correoP,
+            telephone: telefonoP,
+            password: credencialP
         }
-        $.ajax({
-            url: "./localhost/api/login",
-            type: "PATCH",
-            data: JSON.stringify(body),
-            success: function(msg){
-                console.log(msg);
-                okay = msg;
-            },
-            cache: false,
-            contentType: false,
-            processData: false,
-            async: false
-        });
+        const response = await fetch(`http://localhost:3001/api/login`,
+            {
+              method: 'PATCH',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(body),
+            }
+        );
+        
+        const respJson = await response.json();
+        console.log(JSON.stringify(respJson));
+        if (respJson.success) {
+            document.cookie = "nombre=" + respJson.Data['name'] + ";";
+            document.cookie = "correo=" + respJson.Data['email'] + ";";
+            document.cookie = "usuario=" + respJson.Data['usuario'] + ";";
+            document.cookie = "telefono=" + respJson.Data['telephone']+ ";";
+            document.cookie = "id=" + respJson.Data['_id'] + ";";
+            alert("Usuario editado correctamente");
+            window.location.href = "/";
+            return;
+        }else{
+            alert("Usuario no editado");
+        }
     } 
  }
 
@@ -83,8 +96,8 @@ export default function ajaxEdicionUsuario(){
             txt = txt + "El telefono solo puede contener numeros.\n"
             errores++;
         }
-        if(telefonoP.length != 8){
-            txt = txt + "El telefono debe tener 8 caracteres.\n"
+        if(telefonoP.length != 10){
+            txt = txt + "El telefono debe tener 10 caracteres.\n"
             errores++;
         }
     }

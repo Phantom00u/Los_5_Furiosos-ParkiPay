@@ -1,21 +1,32 @@
 import {$,jQuery} from 'jquery';
 
 export default function ajaxBajaUsuario(){
-    let idP = document.getElementsByName("id_user")[0].value;
     var body = {
-        id: idP,
+        id: getCookie("id")
     }
-    $.ajax({
-        url: "./",
-        type: "POST",
-        data: JSON.stringify(body),
-        success: function (msg) {
-            console.log(msg);
-            okay = msg;
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        async: false
-    });
+    const response = await fetch(`http://localhost:3001/api/Usuario`,
+        {
+          method: 'PATCH',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(body),
+        }
+    );
+    
+    const respJson = await response.json();
+    console.log(JSON.stringify(respJson));
+    if (respJson.success) {
+        var a = new Date();
+        a = new Date(a.getTime() - 60);
+        document.cookie = "nombre=a; expires=" +a.toGMTString()+";";
+        document.cookie = "correo=a; expires=" +a.toGMTString()+";";
+        document.cookie = "usuario=a; expires=" +a.toGMTString()+";";
+        document.cookie = "telefono=a; expires=" +a.toGMTString()+";";
+        document.cookie = "id=a; expires=" +a.toGMTString()+";";
+        document.cookie = "dueño=a; expires=" +a.toGMTString()+";";
+        alert("Usuario editado correctamente");
+        window.location.href = "/";
+        return;
+    }else{
+        alert("Usuario no editado");
+    }
  }

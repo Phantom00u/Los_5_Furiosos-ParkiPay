@@ -1,6 +1,8 @@
 const faker = require('faker');
 const boom = require('@hapi/boom');
 const UserModel = require('../models/user.model.js');
+const { use } = require('../routes/login.router.js');
+const { useReducer } = require('react');
 
 const errNotFound = "No se logró encontrar lo buscado";
 const errEmpty = "Aún no hay cuentas creadas";
@@ -20,53 +22,54 @@ class UserService {
   async mongoLogin(limit, filter){
     let users = await UserModel.find(filter);
 
-    if (users == undefined || users == null)
+    if (users === undefined || users === null)
       throw boom.notFound(errNotFound);
     if (users.length <= 0)
       throw boom.notFound(errEmpty);
-
     users = users.filter((item, index) => item && index < limit);
-
     return users;
   }
 
-  async mongoUpdate(body) {
-
-    let userToChange = await UserModel.findOne({
-      _id: body['id']
+  async mongoDelete(body) {
+    let user = await UserModel.findOne({
+      _id: body.id
     });
 
-    if (userToChange == undefined || userToChange == null)
+    const {
+      deletedCount
+    } = await UserModel.deleteOne({
+      _id: body.id
+    });
+
+    if (deletedCount <= 0)
+      throw boom.notFound(errEmpty);
+
+    return true;
+  }
+
+  async mongoUpdate(body) {
+    let userToChange = await UserModel.findOne({
+      _id: body.id
+    });
+
+    if (userToChange === undefined || userToChange === null)
       throw boom.notFound(errNotFound);
     if (userToChange.length <= 0)
       throw boom.notFound(errEmpty);
-
-    let originalUser = {
-      nombre: userToChange.nombre,
-      usuario: userToChange.usuario,
-      correo: userToChange.correo,
-      telefono: userToChange.telefono,
-      credencial: userToChange.credencial
-    };
-
-    const {
-      nombreC, usuarioC, correoC, telefonoC, credencialC
-    } = changes;
-
-    if (nombreC)
-      userToChange.nombre = nombreC;
-    if (usuarioC)
-      userToChange.usuario = usuarioC;
-    if (correoC)
-      userToChange.correo = correoC;
-    if (telefonoC)
-      userToChange.telefono = telefonoC;
-    if (credencialC)
-      userToChange.credencial = credencialC;
+    console.log(JSON.stringify(userToChange));
+    if (body.name)
+      userToChange.nombre = body.name;
+    if (body.usuario)
+      userToChange.usuario = body.usuario;
+    if (body.email)
+      userToChange.correo = body.email;
+    if (body.telephone)
+      userToChange.telefono = body.telephone;
+    if (body.password)
+      userToChange.credencial = body.password;
 
     await userToChange.save();
-
-    return true;
+    return userToChange;
   }
 
   generate() {

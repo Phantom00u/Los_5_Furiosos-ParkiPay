@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import styled from 'styled-components';
 
+
 function Header_useractive(){
 
   return<>
@@ -32,7 +33,7 @@ function Header_usernoactive(){
   </>
 }
 
-/*
+
 function Header_user_admin(){
 
   return<>
@@ -47,9 +48,10 @@ function Header_user_admin(){
     </div>
   </>
 }
-*/
 
-export function Header({ user_active }){
+
+
+export function Header({ user_active, user_dueño }){
     return <Header_style>
       
       <div className="header-app">
@@ -64,9 +66,7 @@ export function Header({ user_active }){
               <div className="col-8">
                 <Form_search_park></Form_search_park>
               </div>
-
-                {user_active ? Header_useractive() : Header_usernoactive() }                
-
+              {user_dueño ? Header_user_admin() : user_active ? Header_useractive() : Header_usernoactive()}
             </div>
         </div>
       </div>

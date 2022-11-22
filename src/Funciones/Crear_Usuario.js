@@ -1,32 +1,44 @@
- 
-import {$,jQuery} from 'jquery';
-export default function ajaxRegistroUsuario(){
+ export default async function ajaxRegistroUsuario(){
     let nombreP = document.getElementsByName("name_user")[0].value;
     let usuarioP = document.getElementsByName("username_user")[0].value;
     let correoP = document.getElementsByName("email_user")[0].value;
     let telefonoP = document.getElementsByName("tel_user")[0].value;
     let credencialP = document.getElementsByName("pssw_user")[0].value;
+    
     if(validarDatos(nombreP,usuarioP,correoP,telefonoP,credencialP)){
         var body = {
-            nombre: nombreP,
+            name: nombreP,
             usuario: usuarioP,
-            correo: correoP,
-            telefono: telefonoP,
-            credencial: credencialP,
-            activo: true
+            email: correoP,
+            telephone: telefonoP,
+            password: credencialP,
+            activo: true,
+            dueño: false
         }
-        $.ajax({
-            url: "./localhost/api/signin",
-            type: "POST",
-            data: JSON.stringify(body),
-            success: function(msg){
-                console.log(msg);
-            },
-            cache: false,
-            contentType: false,
-            processData: false,
-            async: false
-        });
+
+        const response = await fetch(`http://localhost:3001/api/signin`,
+            {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(body),
+            }
+        );
+        
+        const respJson = await response.json();
+        console.log(JSON.stringify(respJson));
+        if (respJson.success) {
+            document.cookie = "nombre=" + respJson.Data['name'] + ";";
+            document.cookie = "usuario=" + respJson.Data['usuario'] + ";";
+            document.cookie = "correo=" + respJson.Data['email'] + ";";
+            document.cookie = "telefono=" + respJson.Data['telephone']+ ";";
+            document.cookie = "id=" + respJson.Data['_id'] + ";";
+            document.cookie = "dueño=" + respJson.Data['dueño'] + ";";
+            alert("Usuario creado correctamente");
+            window.location.href = "/";
+            return;
+        }else{
+            alert("Usuario no creado");
+        }
     } 
  }
 
@@ -87,7 +99,7 @@ export default function ajaxRegistroUsuario(){
             errores++;
         }
         if(telefonoP.length != 10){
-            txt = txt + "El telefono debe tener 8 caracteres.\n"
+            txt = txt + "El telefono debe tener 10 caracteres.\n"
             errores++;
         }
     }
