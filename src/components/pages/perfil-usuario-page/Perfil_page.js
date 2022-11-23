@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import './perfil_page.css';
 import Modal from './Modal';
 import { Form_editarperfil } from '../../forms/Form_editarperfil';
+import ajaxBajaUsuario from '../../../Funciones/Baja_Usuario';
 import {
     Link
   } from "react-router-dom";
@@ -37,7 +38,7 @@ export function Perfil_page(){
                                     <Form_editarperfil></Form_editarperfil>
                                 </Modal>
                                 <Boton onClick={() => cambiarestadoModal1(!estadoModal1)}>Editar perfil</Boton> <br></br>
-                                <Boton>Borrar cuenta</Boton>
+                                <Boton onClick={ajaxBajaUsuario}>Borrar cuenta</Boton>
                             </div>
                             <div className="box-perfil-textos">
                                 <p className="p-bold">Nombre</p>

@@ -11,13 +11,15 @@ router.post(
     '/',
     validatorHandler(getUserId, 'params'),
     async (req, res, next) => {
+      console.log("si entra");
 	const body = req.body;
     try {
         await service.mongoDelete(body);
         res.json({
           success: true,
-          message: 'Usuario eliminado correctamente',
+          message: 'Usuario eliminado correctamente'
         });
+
       } catch (error) {
         next(error);
       }

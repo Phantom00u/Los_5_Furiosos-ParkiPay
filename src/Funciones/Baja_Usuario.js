@@ -1,10 +1,12 @@
-export default function ajaxBajaUsuario(){
+import getCookie from '../Funciones/GetCookie';
+
+export default async function ajaxBajaUsuario(){
     var body = {
         id: getCookie("id")
     }
     const response = await fetch(`http://localhost:3001/api/Usuario`,
         {
-          method: 'PATCH',
+          method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(body),
         }
@@ -25,6 +27,7 @@ export default function ajaxBajaUsuario(){
         window.location.href = "/";
         return;
     }else{
+        alert(JSON.stringify.respJson)
         alert("Usuario no editado");
     }
  }

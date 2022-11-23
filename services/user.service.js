@@ -31,13 +31,7 @@ class UserService {
   }
 
   async mongoDelete(body) {
-    let user = await UserModel.findOne({
-      _id: body.id
-    });
-
-    const {
-      deletedCount
-    } = await UserModel.deleteOne({
+    const deletedCount = await UserModel.deleteOne({
       _id: body.id
     });
 

@@ -36,7 +36,7 @@ const updateUserDto = Joi.object({
 });
 
 const getUserId = Joi.object({
-  id: id.required(),
+  id: id,
 });
 
 module.exports = {
