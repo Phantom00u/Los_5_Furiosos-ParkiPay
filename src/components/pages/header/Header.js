@@ -38,7 +38,7 @@ function Header_user_admin(){
 
   return<>
     <div className="col-2 text-center">
-        <Link to="/mis_reservaciones" className="style-a">Agregar establecimiento</Link>
+        <Link to="/administrar_establecimientos" className="style-a">Establecimientos</Link>
     </div>
     <div className="col-2 text-center">
         <Link to="/perfil_de_usuario" className="style-a">
@@ -66,7 +66,9 @@ export function Header({ user_active, user_dueño }){
               <div className="col-8">
                 <Form_search_park></Form_search_park>
               </div>
-              {user_dueño ? Header_user_admin() : user_active ? Header_useractive() : Header_usernoactive()}
+              {user_dueño ? Header_user_admin() : user_active ? Header_useractive() : Header_usernoactive()
+              //user_active? isadmin? Header_user_admin() : Header_useractive() : Header_usernoactive()
+              }
             </div>
         </div>
       </div>
