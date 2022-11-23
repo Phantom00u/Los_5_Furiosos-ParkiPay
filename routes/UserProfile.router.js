@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const UserService = require('../services/user.service');
 const service = new UserService();
+const validatorHandler = require('./../middlewares/validator.handler');
 const {
 	getUserId
   } = require('../dtos/user.dto');
-  
+
 router.post(
     '/',
     validatorHandler(getUserId, 'params'),

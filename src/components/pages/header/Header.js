@@ -11,7 +11,7 @@ function Header_useractive(){
 
   return<>
     <div className="col-2 text-center">
-      <Link to="/mis_reservaciones" className="style-a">Mis reservaciones</Link>
+      <Link to="/ver_reservas" className="style-a">Mis reservaciones</Link>
     </div>
     <div className="col-2 text-center">
       <Link to="/perfil_de_usuario" className="style-a">

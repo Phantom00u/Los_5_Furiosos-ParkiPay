@@ -1,5 +1,3 @@
-import {$,jQuery} from 'jquery';
-
 export default function ajaxBajaUsuario(){
     var body = {
         id: getCookie("id")

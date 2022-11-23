@@ -59,7 +59,6 @@ router.get('/', async (req, res, next) => {
       next(error);
     }
   });
-  
 
   router.post(
     '/',
