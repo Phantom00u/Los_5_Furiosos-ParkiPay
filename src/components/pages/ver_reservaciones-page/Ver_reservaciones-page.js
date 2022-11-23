@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import '../lists/lista_reserva.css';
 //import { Lista_reserva } from "../lists/Lista_reserva";
 import '../lists/lista_reserva.css';
-import getReservacion from '../../Funciones/Ver_Reservacion';
-import deleteReservacion from '../../Funciones/Ver_Reservacion';
+import getReservacion from '../../../Funciones/Ver_Reservacion';
+import deleteReservacion from '../../../Funciones/Ver_Reservacion';
 var reservacion = getReservacion()
 
 export function Ver_Reservas() {

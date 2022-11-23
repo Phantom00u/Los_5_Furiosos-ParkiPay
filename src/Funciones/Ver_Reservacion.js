@@ -1,4 +1,4 @@
-export function getReservacion(){
+export default async function getReservacion(){
     const response = await fetch(`http://localhost:3001/api/reserve/GetReservationUser`);
     const respJson = await response.json();
     if (respJson.success) {
@@ -14,7 +14,7 @@ export function getReservacion(){
     }
 }
 
-export function deleteReservacion(id){
+export async function deleteReservacion(id){
     const response = await fetch(`http://localhost:3001/api/reserve/` + id ,
     {
         method: 'DELETE'
