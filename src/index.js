@@ -30,7 +30,7 @@ console.log(result);
 root.render(<>
     <Router>
         {/*user active es un boleano que si es falso nos
-        mostrara el header como un usuario que no ha iniciado sesion, 
+        mostrara el header como un usuario que no ha iniciado sesion,
         y si es true nos lo mostrara como un usuario que ha inciado sesion
         isadmin si es verdadero nos mostrara el haeder que ven los admins, si es falso se mostrara
         el header de un usuario comun que ha iniciado sesion*/}
@@ -46,9 +46,9 @@ root.render(<>
                     <Registro_page></Registro_page>
                 </Route>
                 <Route path="/perfil_de_usuario">
-                     <Perfil_page></Perfil_page>   
-                </Route>    
-                <Route path="/establecimiento">
+                     <Perfil_page></Perfil_page>
+                </Route>
+                <Route path="/establecimiento/:ID">
                     <Establecimiento></Establecimiento>
                 </Route>
                 <Route path="/agregar_establecimiento">
@@ -56,16 +56,16 @@ root.render(<>
                 </Route>
                 <Route path="/ver_reservas">
                     <Ver_Reservas></Ver_Reservas>
-                </Route>    
+                </Route>
                 <Route path="/administrar_establecimientos">
                     <Administrar_establecimiento></Administrar_establecimiento>
-                </Route>   
-                <Route path="/editar_establecimiento">
+                </Route>
+                <Route path="/editar_establecimiento/:ID">
                     <Editar_establecimiento_page></Editar_establecimiento_page>
-                </Route>     
+                </Route>
                 <Route path="/Resultados_de_busqueda">
                     <Busqueda></Busqueda>
-                </Route>       
+                </Route>
             </Switch>
         <Footer></Footer>
     </Router>

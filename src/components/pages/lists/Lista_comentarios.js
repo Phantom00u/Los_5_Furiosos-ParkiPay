@@ -1,15 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from 'styled-components';
 
-export function Lista_comentarios(){
-    
+export function Lista_comentarios(props){
+
+    const nombre = props.nombre;
+    const contenido = props.contenido;
+
     return<>
     <Comentarios>
         <div className="info_coment">
             <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp"></img>
-            <p className="p-username">usuario</p>
+            <p className="p-username">{nombre}</p>
         </div>
-        <p className="p-comentario-text">Comentario de la persona</p>
+        <p className="p-comentario-text">{contenido}</p>
         <hr></hr>
     </Comentarios>
     </>

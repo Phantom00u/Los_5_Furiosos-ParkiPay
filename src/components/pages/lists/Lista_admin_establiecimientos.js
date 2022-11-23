@@ -1,35 +1,60 @@
 import './lista_est.css';
-import "bootstrap/dist/css/bootstrap.min.css";
-import {
-    Link
-  } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-export function Lista_admin_establiecimientos(){
+export function Lista_admin_establiecimientos(props) {
 
-    return <>
-        <div className="row box-establecimiento-hijo">
-                    <div className="col-3 py-2 borders">
-                        <img src="https://library.kissclipart.com/20181002/yqw/kissclipart-starbucks-logo-black-and-white-vector-clipart-coff-354a187b5c752f61.png" height="200" width="200"></img>
-                    </div>
-                    <div className="col-9 py-2">
-                        <p className="box-establecimiento-details">Detalles</p>
-                        <p>Starbucks</p>
-                        <p>Direccion Av.Universidad bla bla #123</p>
-                        <p>Horario 10:00AM - 9:00PM</p>
-                        <div className="flexing">
-                            <Link to="/establecimiento">
-                                <button className="box-boton">Ver</button>
-                            </Link>
-                            <Link to="/editar_establecimiento">
-                                <button className="box-boton">Editar</button>
-                            </Link>
-                            
-                                <button className="box-boton">Borrar</button>
-                            
-                        </div>
-                    </div>
+  const id = useState(props.id);
+  const name = useState(props.name);
+  const address = useState(props.address);
+  const hourPrice = useState(props.hourPrice);
+
+  async function deleteHandler (e) {
+    e.preventDefault();
+    const response = await fetch(
+      `http://localhost:3001/api/establecimientos/${id[0]}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+    const respJson = await response.json();
+    console.log(respJson);
+    location.reload();
+  }
+
+
+
+
+
+  return (
+    <>
+      <div className="row box-establecimiento-hijo">
+        <div className="col-3 py-2 borders">
+          <img
+            src="https://library.kissclipart.com/20181002/yqw/kissclipart-starbucks-logo-black-and-white-vector-clipart-coff-354a187b5c752f61.png"
+            height="200"
+            width="200"
+          ></img>
         </div>
-        <br></br>
+        <div className="col-9 py-2">
+          <p className="box-establecimiento-details">Detalles</p>
+          <p>{name}</p>
+          <p>{address}</p>
+          <p>Costo por hora ${hourPrice}</p>
+          <div className="flexing">
+            <Link to={'/establecimiento/' + id[0]}>
+              <button className="box-boton">Ver</button>
+            </Link>
+            <Link to={'/editar_establecimiento/' + id[0]}>
+              <button className="box-boton">Editar</button>
+            </Link>
+            <button className="box-boton" onClick={deleteHandler}>Borrar</button>
+          </div>
+        </div>
+      </div>
+      <br></br>
     </>
+  );
 }
-

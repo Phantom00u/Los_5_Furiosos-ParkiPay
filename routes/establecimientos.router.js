@@ -7,7 +7,7 @@ const {
   createEstablecimiento,
   updateEstablecimiento,
   getEstablecimientoID,
-  reseniaEstablecimiento
+  reseniaEstablecimiento,
 } = require('../dtos/establecimientos.dto');
 
 router.get('/', async (req, res) => {
@@ -25,9 +25,10 @@ router.get(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      console.log('no pasa el find')
+
+      console.log('no pasa el find');
       const Establecimiento = await service.findOne(id);
-      console.log('pasa el find')
+      console.log('pasa el find');
       res.json({
         success: true,
         message: 'Este es el establecimiento encontrado',
@@ -39,36 +40,30 @@ router.get(
   }
 );
 
-
-router.get(
-  '/active',
-  async (req, res, next) => {
-    try {
-      const Establecimiento = await service.findActiveEstablecimientos();
-      res.json({
-        success: true,
-        message: 'Este es el establecimiento encontrado',
-        data: Establecimiento,
-      });
-    } catch (error) {
-      next(error);
-    }
+router.get('/active', async (req, res, next) => {
+  try {
+    const Establecimiento = await service.findActiveEstablecimientos();
+    res.json({
+      success: true,
+      message: 'Este es el establecimiento encontrado',
+      data: Establecimiento,
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 router.post(
   '/',
   validatorHandler(createEstablecimiento, 'body'),
   async (req, res, next) => {
     const body = req.body;
     try {
-
       const newEstablecimiento = await service.create(body);
       res.json({
         success: true,
         message: 'Establecimiento creado correctamente',
         data: newEstablecimiento,
       });
-
     } catch (error) {
       next(error);
     }
@@ -108,7 +103,7 @@ router.patch(
       const Establecimiento = await service.addResenia(id, body);
       res.json({
         message: 'reseña añadida ',
-        data: Establecimiento
+        data: Establecimiento,
       });
     } catch (error) {
       res.status(404).json({
@@ -117,8 +112,6 @@ router.patch(
     }
   }
 );
-
-
 
 /*router.put(
   '/:id',

@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { useHistory   } from 'react-router-dom';
 
 export function Form_Add_establecimiento() {
+
   let hasDecimal = false;
   const history = useHistory();
   async function submitHandler(e) {
@@ -23,7 +24,7 @@ export function Form_Add_establecimiento() {
         isActive: true,
         name: name,
         address: address,
-        parkinglot: parkinglot,
+        parkinglots: parkinglot,
         hourPrice: hourPrice,
       };
       console.log(body);
@@ -37,7 +38,7 @@ export function Form_Add_establecimiento() {
       );
       const respJson = await response.json();
       console.log(respJson);
-      history.push("/");
+      history.push("/administrar_establecimientos");
     }
   }
 
