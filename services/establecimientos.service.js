@@ -107,8 +107,9 @@ class EstablecimientosService {
   }
 
   async addResenia(id, resenia) {
+    console.log('id de resenia', id);
     let establecimientoACambiar = await Model.findOne({
-      _id: id,
+      _id: id
     });
 
     if (establecimientoACambiar == undefined || establecimientoACambiar == null)
