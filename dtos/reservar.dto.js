@@ -5,20 +5,22 @@ const id = Joi.string();
 const code =Joi.string();
 const idUser = Joi.string();
 const idEstablecimiento = Joi.string();
-const parkinglot = Joi.string().min(1).max(200);
 const cost = Joi.string().min(2).max(40);
 const arrivingTime = Joi.string().min(1).max(24);
+const establecimiento = Joi.string()
+const active = Joi.boolean()
+
 
 const createReservationDto = Joi.object({
     idUser: idUser.required(),
     idEstablecimiento: idEstablecimiento.required(),
-    parkinglot: parkinglot.required(),
+    establecimiento:  establecimiento.required(),
     cost: cost.required(),
     arrivingTime: arrivingTime.required(),
+    active : active.required()
 });
 
 const updateReservationDto = Joi.object({
-    parkinglot: parkinglot,
     cost: cost,
     arrivingTime: arrivingTime,
 });

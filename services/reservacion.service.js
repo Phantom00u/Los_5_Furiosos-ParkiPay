@@ -2,13 +2,16 @@ const faker = require('faker');
 const boom = require('@hapi/boom');
 const { validateData, NOTFOUND, CONFLICT } = require('../utils');
 const Model = require('../models/reservation.model.js');
+const { model } = require('mongoose');
+const { default: userEvent } = require('@testing-library/user-event');
+const ModelSearch = require('../models/establecimiento.model')
 
 class ReservacionesService {
   
-  async mongoCreate(data){
+  async mongoCreate(data){    
     const model = new Model(data);
     await model.save();
-    return data;
+    return data
   }
 
   async mongoReadOne(id){
@@ -20,7 +23,12 @@ class ReservacionesService {
   }
 
   async MongoGetAllViaUser(limit, filter){
-    let reservation = await Model.find(filter)
+    const filtrado = {}
+    Object.assign(filtrado, {
+      idUser : filter
+    })
+  
+    let reservation = await Model.find(filtrado)
 
     if (reservation == undefined || reservation == null)
     throw boom.notFound(errNotFound);
@@ -49,6 +57,58 @@ class ReservacionesService {
     return reservation;
 
   }
+
+  async FreeParkingLots (id, idEstablecimiento){
+    let reservationToChange = await Model.findOne({
+      _id: id
+    })
+
+    if (reservationToChange == undefined || reservationToChange == null)
+      throw boom.notFound(errNotFound);
+    if (reservationToChange.length <= 0)
+      throw boom.notFound(errEmpty);
+
+      reservationToChange.active = false
+      await reservationToChange.save();
+
+      //a liberar lotes 
+
+
+      ///
+      let freelots = await ModelSearch.findOne({
+        _id: idEstablecimiento
+      })
+  
+      if (freelots == undefined || freelots == null)
+        throw boom.notFound(errNotFound);
+      if (freelots.length <= 0)
+        throw boom.notFound(errEmpty);
+
+
+        Date.prototype.today = function () { 
+  
+          return this.getFullYear() +"-"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"-"+((this.getDate() < 10)?"0":"") + this.getDate();
+          //return ((this.getDate() < 10)?"0":"") + this.getDate() +"-"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"-"+ this.getFullYear();
+        }
+      
+        // For the time now
+        Date.prototype.timeNow = function () {
+         return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes();
+        }
+      
+        var datetime = new Date().today() + "T" + new Date().timeNow();
+        
+        //To Unix time
+        var d1 = Date.parse(datetime)
+        var d2 = Date.parse(freelots.expirationTime)
+        if(d1>d2){
+        freelots.parkinglots =  freelots.parkinglots + 1
+        await freelots.save();
+        }
+
+  }
+
+ 
 
   async mongoUpdate(id, body) {
 
@@ -88,7 +148,7 @@ class ReservacionesService {
   }
 
   async mongoDelete(id){
-   
+    console.log("este es el id: " + id)
     let Reservation = await Model.findOne({
       _id: id
     });

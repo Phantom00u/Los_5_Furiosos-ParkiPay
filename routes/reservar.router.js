@@ -28,12 +28,13 @@ router.get('/', async (req, res, next) => {
 });
 
   //Obtener todas las reservaciones por Usuario
-  router.get('/GetReservationUser', async (req, res, next) => {
-    //const { size } = req.query;
+  router.get('/GetReservationUser/:id', async (req, res, next) => {
+    const { id } = req.params;
+    console.log(id)
     const limit = 10;
-    const body = req.body;
+    //const body = req.body;
     try {
-      const reservations = await service.MongoGetAllViaUser(limit,body);
+      const reservations = await service.MongoGetAllViaUser(limit,id);
       res.json({
         success: true,
         message: 'Reservaciones via id usuario',
@@ -43,6 +44,8 @@ router.get('/', async (req, res, next) => {
       next(error);
     }
   });
+
+
 
   //Obtener todas las reservaciones por establecimiento
   router.get('/GetReservationEstablishment', async (req, res, next) => {

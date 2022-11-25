@@ -5,6 +5,7 @@ import { Form_comentar } from '../../forms/Form_comentar';
 import { Lista_comentarios } from '../lists/Lista_comentarios';
 import { Form_reservar } from '../../forms/Form_reservar';
 import Modal from './Modal';
+import getCookie from '../../../Funciones/GetCookie';
 
 export function Establecimiento() {
 
@@ -66,7 +67,14 @@ export function Establecimiento() {
             <Modal
               estado={estadoModal1}
               cambiarestado={cambiarestadoModal1}>
-              <Form_reservar></Form_reservar>
+              <Form_reservar
+              idUser = {getCookie("id")}
+              name = {name}
+              address = {address}
+              hourPrice = {hourPrice}
+              parkinglots = {parkinglots}
+              establecimientoID = {establecimientoID}
+              ></Form_reservar>
             </Modal>
             <Boton onClick={() => cambiarestadoModal1(!estadoModal1)}>Reservar un lugar</Boton>
           </Info_establecimiento_right>

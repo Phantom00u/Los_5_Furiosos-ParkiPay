@@ -15,7 +15,7 @@ export default async function getReservacion(){
 }
 
 export async function deleteReservacion(id){
-    const response = await fetch(`http://localhost:3001/api/reserve/` + id ,
+    const response = await fetch(`http://localhost:3001/api/reserve/${id}`  ,
     {
         method: 'DELETE'
     }
@@ -24,4 +24,6 @@ export async function deleteReservacion(id){
     if (respJson.success) {
         return respJson;
     }
+    console.log("penes bien grandes")
 }
+

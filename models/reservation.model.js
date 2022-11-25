@@ -3,10 +3,10 @@ const reservationSchema = mongoose.Schema({
     id: mongoose.Types.ObjectId,
     idUser: String,
     idEstablecimiento: String,
-    parkinglot: String,
+    establecimiento: String,
     cost: String,
     arrivingTime: String,
-    activo: Boolean
+    active: Boolean
 });
 const model = mongoose.model('reservaciones', reservationSchema);
 module.exports = model;
