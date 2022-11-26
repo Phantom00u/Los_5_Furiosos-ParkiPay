@@ -10,6 +10,19 @@ import {
     Link
   } from "react-router-dom";
   
+function cerrarSesion(){
+    var a = new Date();
+        a = new Date(a.getTime() - 60);
+    document.cookie = "nombre=a; expires=" +a.toGMTString()+";";
+    document.cookie = "correo=a; expires=" +a.toGMTString()+";";
+    document.cookie = "usuario=a; expires=" +a.toGMTString()+";";
+    document.cookie = "telefono=a; expires=" +a.toGMTString()+";";
+    document.cookie = "id=a; expires=" +a.toGMTString()+";";
+    document.cookie = "dueño=a; expires=" +a.toGMTString()+";";
+    alert("Sesion cerrada correctamente");
+    window.location.href = "/";
+} 
+  
 export function Perfil_page(){
 
     const [estadoModal1, cambiarestadoModal1] = useState(false);
@@ -22,7 +35,7 @@ export function Perfil_page(){
                         <p id="title-opciones">OPCIONES</p>
                         <p>Mi cuenta</p>
                         <Link to="/ver_reservas"><p  className="styled-p">Ver reservaciones</p></Link>
-                        <Link to="/"><p>Cerrar sesión</p></Link>
+                        <Link onClick={cerrarSesion}><p>Cerrar sesión</p></Link>
                     </div>
             </div>
             <div className="box-informacion-perfil">

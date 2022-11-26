@@ -50,9 +50,11 @@ class UserService {
       throw boom.notFound(errNotFound);
     if (userToChange.length <= 0)
       throw boom.notFound(errEmpty);
-    console.log(JSON.stringify(userToChange));
-    if (body.name)
-      userToChange.nombre = body.name;
+    console.log(JSON.stringify(JSON.stringify(userToChange)));
+    if (body.name){
+      console.log("si entrpe");
+      userToChange.name = body.name;
+    }
     if (body.usuario)
       userToChange.usuario = body.usuario;
     if (body.email)

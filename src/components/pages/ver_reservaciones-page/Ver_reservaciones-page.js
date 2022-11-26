@@ -1,13 +1,9 @@
 import getCookie from '../../../Funciones/GetCookie';
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../lists/lista_reserva.css';
-//import { Lista_reserva } from "../lists/Lista_reserva";
 import '../lists/lista_reserva.css';
-//import getReservacion from '../../../Funciones/Ver_Reservacion';
-//import deleteReservacion from '../../../Funciones/Ver_Reservacion';
 import React, { useState, useEffect } from 'react';
 import { Lista_reserva } from "../lists/Lista_reserva";
-//var reservacion = getReservacion()
 
 export function Ver_Reservas() {
 
@@ -51,10 +47,3 @@ export function Ver_Reservas() {
     </>
 
 }
-
-/*
-
-Ver reservacion 
-tiene estado(activo o cancelada), precio, hora de inicio, duración, establecimiento (nombre y direccion), estatus (pagado, por pagar, lugar (tipo te toca el lugar A45 para estacionarte)
-
-*/

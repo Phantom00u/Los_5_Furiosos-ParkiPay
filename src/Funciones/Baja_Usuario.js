@@ -23,7 +23,7 @@ export default async function ajaxBajaUsuario(){
         document.cookie = "telefono=a; expires=" +a.toGMTString()+";";
         document.cookie = "id=a; expires=" +a.toGMTString()+";";
         document.cookie = "dueño=a; expires=" +a.toGMTString()+";";
-        alert("Usuario editado correctamente");
+        alert("Usuario eliminado correctamente");
         window.location.href = "/";
         return;
     }else{

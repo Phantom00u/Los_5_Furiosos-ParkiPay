@@ -23,7 +23,7 @@ export default async function ajaxEdicionUsuario(nombrePP,usuarioPP,correoPP,tel
             {
               method: 'PATCH',
               headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify(body),
+              body: JSON.stringify(body)
             }
         );
         

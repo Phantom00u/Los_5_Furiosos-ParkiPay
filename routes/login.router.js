@@ -47,6 +47,7 @@ const {
     async (req, res, next) => {
 	const body = req.body;
     try {
+		console.log(JSON.stringify(body));
         const user = await service.mongoUpdate(body);
         res.json({
           success: true,

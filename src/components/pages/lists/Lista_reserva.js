@@ -1,8 +1,6 @@
 import './lista_reserva.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import styled from 'styled-components';
 import React, { useState } from 'react';
-import { useHistory   } from 'react-router-dom';
 //import deleteReservacion from '../../../Funciones/Ver_Reservacion';
 /*import {
     BrowserRouter as Router,
@@ -14,7 +12,7 @@ import { useHistory   } from 'react-router-dom';
 export function Lista_reserva(props) {
 
 
-    const id = useState(props.idUser)
+    //const id = useState(props.idUser)
     const idres = useState(props.id)
     const idEstablecimiento = useState(props.idEstablecimiento)
     const cost = useState(props.cost)
@@ -28,6 +26,7 @@ export function Lista_reserva(props) {
     }
     );
     const respJson = await response.json();
+    console.log(JSON.stringify(respJson));
     window.location.reload();
 
     }
@@ -40,7 +39,7 @@ export function Lista_reserva(props) {
 <h5> Establecimiento</h5>
 <div class="row">
     <div className="col-3 py-2 borders">
-    <img src="https://library.kissclipart.com/20181002/yqw/kissclipart-starbucks-logo-black-and-white-vector-clipart-coff-354a187b5c752f61.png" class="img-fluid" alt="Responsive image"></img>
+    <img src="https://cdn.pixabay.com/photo/2019/09/06/03/39/parking-4455360_960_720.jpg" class="img-fluid" alt="Responsive image"></img>
     </div>
 
     <div className="col-5 py-2">

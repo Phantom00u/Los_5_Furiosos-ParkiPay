@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import parkipaylogo from "./logoparkipay.png";
-import { Form_search_park } from '../../forms/Form_search_park';
 import {
   Link
 } from "react-router-dom";
@@ -64,7 +63,6 @@ export function Header({ user_active, user_dueño }){
         <div className="row-app">
             <div className="row py-2">
               <div className="col-8">
-                <Form_search_park></Form_search_park>
               </div>
               {user_dueño ? Header_user_admin() : user_active ? Header_useractive() : Header_usernoactive()
               //user_active? isadmin? Header_user_admin() : Header_useractive() : Header_usernoactive()

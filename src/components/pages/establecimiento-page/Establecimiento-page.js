@@ -49,7 +49,7 @@ export function Establecimiento() {
         <div className="Encabezado  text-start"><h3>Establecimiento</h3> </div>
         <Info_establecimiento>
           <Info_establecimiento_left>
-            <img src="https://library.kissclipart.com/20181002/yqw/kissclipart-starbucks-logo-black-and-white-vector-clipart-coff-354a187b5c752f61.png"></img>
+            <img src="https://cdn.pixabay.com/photo/2019/09/06/03/39/parking-4455360_960_720.jpg"></img>
           </Info_establecimiento_left>
           <Info_establecimiento_right>
             <div className="box-p">

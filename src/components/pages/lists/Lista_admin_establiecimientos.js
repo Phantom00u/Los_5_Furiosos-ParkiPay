@@ -33,7 +33,7 @@ export function Lista_admin_establiecimientos(props) {
       <div className="row box-establecimiento-hijo">
         <div className="col-3 py-2 borders">
           <img
-            src="https://library.kissclipart.com/20181002/yqw/kissclipart-starbucks-logo-black-and-white-vector-clipart-coff-354a187b5c752f61.png"
+            src="https://cdn.pixabay.com/photo/2019/09/06/03/39/parking-4455360_960_720.jpg"
             height="200"
             width="200"
           ></img>

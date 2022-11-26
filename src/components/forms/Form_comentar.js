@@ -1,3 +1,4 @@
+import getCookie from '../../Funciones/GetCookie';
 import styled from 'styled-components';
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from 'jquery';
@@ -15,7 +16,7 @@ export function Form_comentar(props) {
     if (contenido === '') return;
 
     //Seteado de cookies para sacar el nombre
-    const name = "CARLOS";
+    const name = getCookie("nombre");
 
     const body = {
       nombre: name,
